@@ -1,0 +1,190 @@
+/* ================================
+   RESPONSIVE
+   Breakpoints:
+   - Mobile:  < 640px
+   - Tablet:  640px – 1024px
+   - Desktop: > 1024px
+================================ */
+
+/* ================================
+   TABLET (até 1024px)
+================================ */
+
+@media (max-width: 1024px) {
+
+  /* Grid de 2 colunas vira 1 */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stats em 3 colunas mantém */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Sidebar mais estreita */
+  .sidebar {
+    width: 200px;
+    min-width: 200px;
+  }
+
+}
+
+/* ================================
+   MOBILE (até 640px)
+================================ */
+
+@media (max-width: 640px) {
+
+  /* Esconde a sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  /* Mostra o botão hambúrguer */
+  .icon-button {
+    display: flex;
+  }
+
+  /* Esconde botões da topbar */
+  .topbar-actions {
+    display: none;
+  }
+
+  /* Ajusta padding da topbar */
+  .topbar {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Ajusta padding do conteúdo */
+  .content {
+    padding: var(--space-4);
+    padding-bottom: calc(var(--space-4) + 64px);
+  }
+
+  /* Stats em 3 colunas compactas */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .stat-card {
+    padding: var(--space-3);
+  }
+
+  .stat-value {
+    font-size: var(--fs-xl);
+  }
+
+  /* Grid vira 1 coluna */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Mostra a bottom nav */
+  .mobile-nav {
+    display: flex;
+  }
+
+  /* Main precisa de espaço para a bottom nav */
+  .main-layout {
+    padding-bottom: 64px;
+  }
+
+}
+
+/* ================================
+   MOBILE NAV (bottom navigation)
+================================ */
+
+.mobile-nav {
+  display: none;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+
+  padding: var(--space-2) 0 var(--space-4);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  flex: 1;
+
+  background: none;
+  border: none;
+
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+
+  padding: var(--space-2) 0;
+
+  transition: var(--transition-fast);
+}
+
+.mobile-nav-item i {
+  font-size: 1.35rem;
+}
+
+.mobile-nav-item:hover {
+  color: var(--brand-primary);
+}
+
+.mobile-nav-item.is-active {
+  color: var(--brand-primary);
+}
+
+/* ================================
+   SIDEBAR MOBILE (drawer)
+================================ */
+
+.sidebar-overlay {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+  z-index: 98;
+
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+
+  transition: opacity var(--transition-normal);
+}
+
+.sidebar-overlay.is-open {
+  display: block;
+}
+
+.sidebar-drawer {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  z-index: 99;
+
+  width: 260px;
+  height: 100%;
+
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--space-6) 0;
+
+  transition: left var(--transition-normal);
+}
+
+.sidebar-drawer.is-open {
+  left: 0;
+}

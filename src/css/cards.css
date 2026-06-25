@@ -1,0 +1,247 @@
+/* ================================
+   STATS GRID
+================================ */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-6);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  padding: var(--space-5);
+
+  background: var(--surface-soft);
+  border-radius: var(--radius-lg);
+}
+
+.stat-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-value.is-success {
+  color: var(--success);
+}
+
+.stat-description {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ================================
+   CARD
+================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: var(--space-5);
+}
+
+.card-title {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.card-link {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.card-link:hover {
+  color: var(--brand-primary);
+}
+
+/* ================================
+   LIST
+================================ */
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* ================================
+   ITEM ICON
+================================ */
+
+.item-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+}
+
+.icon-purple { background: var(--brand-soft);   color: var(--brand-primary); }
+.icon-gray   { background: var(--surface-soft); color: var(--text-secondary); }
+.icon-green  { background: var(--green-soft);   color: var(--success); }
+.icon-pink   { background: var(--pink-soft);    color: #993556; }
+.icon-yellow { background: var(--yellow-soft);  color: #633806; }
+
+/* ================================
+   ITEM CONTENT
+================================ */
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-content strong {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-content span {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+/* ================================
+   PROGRESS BAR
+================================ */
+
+.progress {
+  margin-top: var(--space-2);
+
+  height: 3px;
+
+  background: var(--bg);
+  border-radius: var(--radius-full);
+
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-warning { background: var(--warning); }
+.progress-danger  { background: var(--danger); }
+.progress-success { background: var(--success); }
+
+/* ================================
+   BADGES
+================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 3px var(--space-2);
+
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+
+  border-radius: var(--radius-full);
+
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-warning { background: var(--yellow-soft); color: #633806; }
+.badge-danger  { background: #FCEBEB;             color: #791F1F; }
+.badge-success { background: var(--green-soft);   color: #27500A; }
+
+/* ================================
+   AVATAR
+================================ */
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+}
+
+/* ================================
+   ITEM META (encomendas)
+================================ */
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.item-meta strong {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.item-meta span {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
