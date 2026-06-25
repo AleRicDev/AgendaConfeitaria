@@ -1,0 +1,121 @@
+/* ================================
+   TOPBAR
+================================ */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--space-4) var(--space-6);
+
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ================================
+   TOPBAR LEFT
+================================ */
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.topbar-greeting {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.topbar-date {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ================================
+   ICON BUTTON (hamburguer)
+================================ */
+
+.icon-button {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+
+  transition: var(--transition-fast);
+}
+
+.icon-button:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* ================================
+   TOPBAR ACTIONS
+================================ */
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: var(--space-2) var(--space-4);
+
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+
+  border-radius: var(--radius-md);
+  border: none;
+
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn i {
+  font-size: 1rem;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--brand-primary);
+}
+
+.btn-outline:hover {
+  background: var(--brand-soft);
+}
+
+.btn-primary {
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+}
+
+.btn-primary:hover {
+  background: var(--brand-hover);
+}
