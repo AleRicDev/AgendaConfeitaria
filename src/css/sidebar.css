@@ -3,8 +3,8 @@
 ================================ */
 
 .sidebar {
-  width: 240px;
-  min-width: 240px;
+  width: 200px;
+  min-width: 200px;
 
   background: var(--surface);
 
@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
 
-  padding: var(--space-6) 0;
+  padding: var(--space-5) 0;
 }
 
 /* ================================
@@ -25,14 +25,14 @@
   align-items: center;
   gap: var(--space-3);
 
-  padding: 0 var(--space-5) var(--space-6);
+  padding: 0 var(--space-4) var(--space-5);
 
   border-bottom: 1px solid var(--border);
 }
 
 .sidebar-brand-icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
@@ -41,10 +41,10 @@
   border-radius: var(--radius-md);
 
   background: var(--brand-soft);
-
   color: var(--brand-primary);
 
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .sidebar-brand-text {
@@ -53,6 +53,7 @@
 }
 
 .sidebar-title {
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
   color: var(--text-primary);
 }
@@ -70,7 +71,7 @@
   display: flex;
   flex-direction: column;
 
-  padding-top: var(--space-4);
+  padding-top: var(--space-3);
 }
 
 .nav-label {
@@ -81,7 +82,7 @@
 
   color: var(--text-muted);
 
-  padding: var(--space-4) var(--space-5) var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-2);
 }
 
 .nav-item {
@@ -89,8 +90,9 @@
   align-items: center;
   gap: var(--space-3);
 
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-2) var(--space-4);
 
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
 
   transition: var(--transition-fast);
@@ -102,13 +104,12 @@
 
 .nav-item:hover {
   background: var(--bg);
+  color: var(--text-primary);
 }
 
 .nav-item.is-active {
   background: var(--brand-soft);
-
   color: var(--brand-primary);
-
   font-weight: var(--fw-medium);
 }
 
@@ -119,7 +120,7 @@
 .sidebar-footer {
   margin-top: auto;
 
-  padding: var(--space-5);
+  padding: var(--space-4);
 
   border-top: 1px solid var(--border);
 }
@@ -135,8 +136,8 @@
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
 
   border-radius: 50%;
 
@@ -147,7 +148,10 @@
   background: var(--brand-soft);
   color: var(--brand-primary);
 
+  font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
+
+  flex-shrink: 0;
 }
 
 .user-info {
@@ -158,12 +162,10 @@
 .user-name {
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
-
   color: var(--text-primary);
 }
 
 .user-role {
   font-size: var(--fs-xs);
-
   color: var(--text-muted);
 }

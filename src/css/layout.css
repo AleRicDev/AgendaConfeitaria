@@ -1,20 +1,22 @@
 /* ================================
-LAYOUT BASE (APP SHELL)
+   LAYOUT BASE (APP SHELL)
 ================================ */
 
 .app-shell {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: var(--bg);
+  align-items: stretch;
 }
 
 /* ================================
-SIDEBAR (estrutura, não estilo interno)
+   SIDEBAR (estrutura, não estilo interno)
 ================================ */
 
 .sidebar {
-  width: 220px;
-  min-width: 220px;
+  width: 200px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   background: var(--surface);
@@ -22,10 +24,10 @@ SIDEBAR (estrutura, não estilo interno)
 }
 
 /* ================================
-MAIN AREA
+   MAIN AREA
 ================================ */
 
-.main {
+.main-layout {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -34,7 +36,7 @@ MAIN AREA
 }
 
 /* ================================
-CONTENT AREA
+   CONTENT AREA
 ================================ */
 
 .content {
@@ -44,18 +46,18 @@ CONTENT AREA
 }
 
 /* ================================
-GRID PRINCIPAL DO CONTEÚDO
+   GRID PRINCIPAL DO CONTEÚDO
 ================================ */
 
 .grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: var(--space-6);
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-5);
   align-items: start;
 }
 
 /* ================================
-UTILITÁRIOS DE LAYOUT
+   UTILITÁRIOS DE LAYOUT
 ================================ */
 
 .container {
@@ -66,22 +68,14 @@ UTILITÁRIOS DE LAYOUT
 }
 
 /* ================================
-SCROLL BEHAVIOR (MAIN AREA)
+   SCROLL BEHAVIOR (CONTENT AREA)
 ================================ */
 
-.main::-webkit-scrollbar {
+.content::-webkit-scrollbar {
   width: 6px;
 }
 
-.main::-webkit-scrollbar-thumb {
+.content::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: var(--radius-full);
-}
-
-/* ================================
-AJUSTE DE ALTURA INTERNA
-================================ */
-
-.app-shell {
-  align-items: stretch;
 }

@@ -5,9 +5,9 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
 
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
 }
 
 .stat-card {
@@ -15,7 +15,7 @@
   flex-direction: column;
   gap: var(--space-1);
 
-  padding: var(--space-5);
+  padding: var(--space-4);
 
   background: var(--surface-soft);
   border-radius: var(--radius-lg);
@@ -30,7 +30,7 @@
 }
 
 .stat-value {
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-xl);
   font-weight: var(--fw-bold);
   color: var(--text-primary);
   line-height: 1;
@@ -53,7 +53,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-4);
 }
 
 .card-header {
@@ -61,11 +61,11 @@
   align-items: center;
   justify-content: space-between;
 
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .card-title {
-  font-size: var(--fs-md);
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
   color: var(--text-primary);
 }
@@ -108,8 +108,8 @@
 ================================ */
 
 .item-icon {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
 
   display: flex;
@@ -117,7 +117,7 @@
   justify-content: center;
 
   border-radius: var(--radius-md);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .icon-purple { background: var(--brand-soft);   color: var(--brand-primary); }
@@ -186,7 +186,7 @@
   display: inline-flex;
   align-items: center;
 
-  padding: 3px var(--space-2);
+  padding: 2px var(--space-3);
 
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
@@ -206,8 +206,8 @@
 ================================ */
 
 .avatar {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
 
   border-radius: 50%;
