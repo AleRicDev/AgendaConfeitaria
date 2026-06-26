@@ -1,0 +1,171 @@
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+  width: 200px;
+  min-width: 200px;
+
+  background: var(--surface);
+
+  border-right: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--space-5) 0;
+}
+
+/* ================================
+   BRAND
+================================ */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 0 var(--space-4) var(--space-5);
+
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-brand-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-md);
+
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.sidebar-version {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ================================
+   NAVIGATION
+================================ */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: var(--space-3);
+}
+
+.nav-label {
+  font-size: var(--fs-xs);
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  color: var(--text-muted);
+
+  padding: var(--space-4) var(--space-4) var(--space-2);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-2) var(--space-4);
+
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+
+  transition: var(--transition-fast);
+}
+
+.nav-item i {
+  font-size: 1.1rem;
+}
+
+.nav-item:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.nav-item.is-active {
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+  font-weight: var(--fw-medium);
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.sidebar-footer {
+  margin-top: auto;
+
+  padding: var(--space-4);
+
+  border-top: 1px solid var(--border);
+}
+
+/* ================================
+   USER
+================================ */
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.user-role {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}

@@ -7,300 +7,317 @@
 
   <title>Doce Gestão</title>
 
-  <!-- FONTES -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- ÍCONES -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <!-- Tabler Icons -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="./src/css/index.css">
 </head>
 
 <body>
 
-<div class="layout">
+  <div class="app-shell">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <div class="sidebar-brand">
-      <div class="sidebar-brand-icon">
-        <i class="ti ti-cake" aria-hidden="true"></i>
-      </div>
+      <div class="sidebar-brand">
 
-      <div class="sidebar-brand-text">
-        <p class="sidebar-title">Doce Gestão</p>
-        <span class="sidebar-version">v1.0</span>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-
-      <p class="nav-label">Principal</p>
-
-      <a href="#" class="nav-item is-active">
-        <i class="ti ti-home"></i>
-        <span>Home</span>
-      </a>
-
-      <a href="#" class="nav-item">
-        <i class="ti ti-calendar"></i>
-        <span>Agenda</span>
-      </a>
-
-      <a href="#" class="nav-item">
-        <i class="ti ti-clipboard-list"></i>
-        <span>Produtos</span>
-      </a>
-
-      <p class="nav-label">Financeiro</p>
-
-      <a href="#" class="nav-item">
-        <i class="ti ti-chart-bar"></i>
-        <span>Financeiro</span>
-      </a>
-
-      <p class="nav-label">Sistema</p>
-
-      <a href="#" class="nav-item">
-        <i class="ti ti-settings"></i>
-        <span>Configurações</span>
-      </a>
-
-    </nav>
-
-    <div class="sidebar-footer">
-
-      <div class="user">
-        <div class="user-avatar">M</div>
-
-        <div class="user-info">
-          <p class="user-name">Maria</p>
-          <p class="user-role">Confeiteira</p>
+        <div class="sidebar-brand-icon">
+          <i class="ti ti-cake"></i>
         </div>
-      </div>
 
-    </div>
-
-  </aside>
-
-  <!-- MAIN -->
-  <div class="main">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-
-      <div class="topbar-left">
-
-        <button class="icon-button" aria-label="Abrir menu">
-          <i class="ti ti-menu-2"></i>
-        </button>
-
-        <div class="topbar-text">
-          <p class="topbar-greeting">Olá, Maria 👋</p>
-          <p class="topbar-date">Terça-feira, 24 de junho de 2025</p>
+        <div class="sidebar-brand-text">
+          <p class="sidebar-title">Doce Gestão</p>
+          <span class="sidebar-version">v1.0</span>
         </div>
 
       </div>
 
-      <div class="topbar-actions">
+      <nav class="sidebar-nav">
 
-        <button class="btn btn-outline">
-          <i class="ti ti-plus"></i>
-          Nova produção
-        </button>
+        <p class="nav-label">Principal</p>
 
-        <button class="btn btn-primary">
-          <i class="ti ti-clipboard-plus"></i>
-          Nova encomenda
-        </button>
+        <a href="#" class="nav-item is-active">
+          <i class="ti ti-home"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="#" class="nav-item">
+          <i class="ti ti-calendar"></i>
+          <span>Agenda</span>
+        </a>
+
+        <a href="#" class="nav-item">
+          <i class="ti ti-clipboard-list"></i>
+          <span>Produtos</span>
+        </a>
+
+        <p class="nav-label">Financeiro</p>
+
+        <a href="#" class="nav-item">
+          <i class="ti ti-chart-bar"></i>
+          <span>Financeiro</span>
+        </a>
+
+        <p class="nav-label">Sistema</p>
+
+        <a href="#" class="nav-item">
+          <i class="ti ti-settings"></i>
+          <span>Configurações</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-footer">
+
+        <div class="user">
+
+          <div class="user-avatar">
+            M
+          </div>
+
+          <div class="user-info">
+            <p class="user-name">Maria</p>
+            <p class="user-role">Confeiteira</p>
+          </div>
+
+        </div>
 
       </div>
 
-    </header>
+    </aside>
 
-    <!-- CONTENT -->
-    <main class="content">
+    <!-- MAIN -->
+    <div class="main-layout">
 
-      <!-- STATS -->
-      <section class="stats-grid">
+      <!-- TOPBAR -->
+      <header class="topbar">
 
-        <article class="stat-card">
-          <span class="stat-label">Planejadas</span>
-          <h3 class="stat-value">8</h3>
-          <span class="stat-description">produções hoje</span>
-        </article>
+        <div class="topbar-left">
 
-        <article class="stat-card">
-          <span class="stat-label">Encomendas</span>
-          <h3 class="stat-value">5</h3>
-          <span class="stat-description">para entregar</span>
-        </article>
+          <button class="icon-button" aria-label="Abrir menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
 
-        <article class="stat-card">
-          <span class="stat-label">Concluídas</span>
-          <h3 class="stat-value is-success">3</h3>
-          <span class="stat-description">finalizadas</span>
-        </article>
-
-      </section>
-
-      <!-- GRID -->
-      <section class="grid">
-
-        <!-- PRODUÇÕES -->
-        <section class="card">
-
-          <header class="card-header">
-            <h2 class="card-title">Produções do dia</h2>
-            <a href="#" class="card-link">Ver todas</a>
-          </header>
-
-          <div class="list">
-
-            <article class="list-item">
-
-              <div class="item-icon icon-purple">
-                <i class="ti ti-candy"></i>
-              </div>
-
-              <div class="item-content">
-                <strong>Brigadeiro Gourmet</strong>
-                <span>100 unidades</span>
-
-                <div class="progress">
-                  <div class="progress-bar progress-warning" style="width:55%"></div>
-                </div>
-              </div>
-
-              <span class="badge badge-warning">Em andamento</span>
-
-            </article>
-
-            <article class="list-item">
-
-              <div class="item-icon icon-gray">
-                <i class="ti ti-cookie"></i>
-              </div>
-
-              <div class="item-content">
-                <strong>Brownie Tradicional</strong>
-                <span>30 unidades</span>
-
-                <div class="progress">
-                  <div class="progress-bar progress-danger" style="width:0%"></div>
-                </div>
-              </div>
-
-              <span class="badge badge-danger">Pendente</span>
-
-            </article>
-
-            <article class="list-item">
-
-              <div class="item-icon icon-green">
-                <i class="ti ti-cake"></i>
-              </div>
-
-              <div class="item-content">
-                <strong>Bolo de Cenoura</strong>
-                <span>5 unidades</span>
-
-                <div class="progress">
-                  <div class="progress-bar progress-success" style="width:100%"></div>
-                </div>
-              </div>
-
-              <span class="badge badge-success">Concluído</span>
-
-            </article>
-
+          <div class="topbar-text">
+            <p class="topbar-greeting">Olá, Maria 👋</p>
+            <p class="topbar-date">
+              Terça-feira, 24 de junho de 2025
+            </p>
           </div>
+
+        </div>
+
+        <div class="topbar-actions">
+
+          <button class="btn btn-outline">
+            <i class="ti ti-plus"></i>
+            Nova produção
+          </button>
+
+          <button class="btn btn-primary">
+            <i class="ti ti-clipboard-plus"></i>
+            Nova encomenda
+          </button>
+
+        </div>
+
+      </header>
+
+      <!-- CONTEÚDO -->
+      <main class="content">
+
+        <!-- STATS -->
+        <section class="stats-grid">
+
+          <article class="stat-card">
+            <span class="stat-label">Planejadas</span>
+            <h3 class="stat-value">8</h3>
+            <span class="stat-description">produções hoje</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Encomendas</span>
+            <h3 class="stat-value">5</h3>
+            <span class="stat-description">para entregar</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Concluídas</span>
+            <h3 class="stat-value is-success">3</h3>
+            <span class="stat-description">finalizadas</span>
+          </article>
 
         </section>
 
-        <!-- ENCOMENDAS -->
-        <section class="card">
+        <!-- GRID -->
+        <section class="grid">
 
-          <header class="card-header">
-            <h2 class="card-title">Encomendas</h2>
-            <a href="#" class="card-link">Ver todas</a>
-          </header>
+          <!-- PRODUÇÕES -->
+          <section class="card">
 
-          <div class="list">
+            <header class="card-header">
+              <h2 class="card-title">Produções do dia</h2>
+              <a href="#" class="card-link">Ver todas</a>
+            </header>
 
-            <article class="list-item">
+            <div class="list">
 
-              <div class="avatar">JS</div>
+              <article class="list-item">
 
-              <div class="item-content">
-                <strong>João Silva</strong>
-                <span>Bolo de Chocolate</span>
-              </div>
+                <div class="item-icon icon-purple">
+                  <i class="ti ti-candy"></i>
+                </div>
 
-              <div class="item-meta">
-                <strong>15:00</strong>
-                <span>hoje</span>
-              </div>
+                <div class="item-content">
+                  <strong>Brigadeiro Gourmet</strong>
+                  <span>100 unidades</span>
 
-            </article>
+                  <div class="progress">
+                    <div class="progress-bar progress-warning" style="width:55%"></div>
+                  </div>
+                </div>
 
-            <article class="list-item">
-              <div class="avatar">AC</div>
-              <div class="item-content">
-                <strong>Ana Costa</strong>
-                <span>Brigadeiros</span>
-              </div>
-              <div class="item-meta">
-                <strong>18:30</strong>
-                <span>hoje</span>
-              </div>
-            </article>
+                <span class="badge badge-warning">
+                  Em andamento
+                </span>
 
-          </div>
+              </article>
+
+              <article class="list-item">
+
+                <div class="item-icon icon-gray">
+                  <i class="ti ti-cookie"></i>
+                </div>
+
+                <div class="item-content">
+                  <strong>Brownie Tradicional</strong>
+                  <span>30 unidades</span>
+
+                  <div class="progress">
+                    <div class="progress-bar progress-danger" style="width:0%"></div>
+                  </div>
+                </div>
+
+                <span class="badge badge-danger">
+                  Pendente
+                </span>
+
+              </article>
+
+              <article class="list-item">
+
+                <div class="item-icon icon-green">
+                  <i class="ti ti-cake"></i>
+                </div>
+
+                <div class="item-content">
+                  <strong>Bolo de Cenoura</strong>
+                  <span>5 unidades</span>
+
+                  <div class="progress">
+                    <div class="progress-bar progress-success" style="width:100%"></div>
+                  </div>
+                </div>
+
+                <span class="badge badge-success">
+                  Concluído
+                </span>
+
+              </article>
+
+            </div>
+
+          </section>
+
+          <!-- ENCOMENDAS -->
+          <section class="card">
+
+            <header class="card-header">
+              <h2 class="card-title">Encomendas</h2>
+              <a href="#" class="card-link">Ver todas</a>
+            </header>
+
+            <div class="list">
+
+              <article class="list-item">
+
+                <div class="avatar">JS</div>
+
+                <div class="item-content">
+                  <strong>João Silva</strong>
+                  <span>Bolo de Chocolate</span>
+                </div>
+
+                <div class="item-meta">
+                  <strong>15:00</strong>
+                  <span>Hoje</span>
+                </div>
+
+              </article>
+
+              <article class="list-item">
+
+                <div class="avatar">AC</div>
+
+                <div class="item-content">
+                  <strong>Ana Costa</strong>
+                  <span>Brigadeiros</span>
+                </div>
+
+                <div class="item-meta">
+                  <strong>18:30</strong>
+                  <span>Hoje</span>
+                </div>
+
+              </article>
+
+            </div>
+
+          </section>
 
         </section>
 
-      </section>
+      </main>
 
-    </main>
+      <!-- MOBILE NAV -->
+      <nav class="mobile-nav">
 
-    <!-- MOBILE NAV -->
-    <nav class="mobile-nav">
+        <button class="mobile-nav-item is-active">
+          <i class="ti ti-home"></i>
+          <span>Home</span>
+        </button>
 
-      <button class="mobile-nav-item is-active">
-        <i class="ti ti-home"></i>
-        Home
-      </button>
+        <button class="mobile-nav-item">
+          <i class="ti ti-calendar"></i>
+          <span>Agenda</span>
+        </button>
 
-      <button class="mobile-nav-item">
-        <i class="ti ti-calendar"></i>
-        Agenda
-      </button>
+        <button class="mobile-nav-item">
+          <i class="ti ti-clipboard-list"></i>
+          <span>Produtos</span>
+        </button>
 
-      <button class="mobile-nav-item">
-        <i class="ti ti-clipboard-list"></i>
-        Produtos
-      </button>
+        <button class="mobile-nav-item">
+          <i class="ti ti-chart-bar"></i>
+          <span>Financeiro</span>
+        </button>
 
-      <button class="mobile-nav-item">
-        <i class="ti ti-chart-bar"></i>
-        Financeiro
-      </button>
+        <button class="mobile-nav-item">
+          <i class="ti ti-settings"></i>
+          <span>Config</span>
+        </button>
 
-      <button class="mobile-nav-item">
-        <i class="ti ti-settings"></i>
-        Config
-      </button>
+      </nav>
 
-    </nav>
+    </div>
 
   </div>
 
-</div>
+  <script src="./js/main.js"></script>
 
 </body>
+
 </html>
