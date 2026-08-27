@@ -1,3 +1,13 @@
 {
-  "productions": []
+  "productions": [
+    {
+      "id": 1,
+      "client": "Maria",
+      "product": "Bolo de chocolate",
+      "quantity": 2,
+      "preparationTime": "09:00",
+      "deliveryDate": "2026-08-27",
+      "notes": "Sem morango"
+    }
+  ]
 }
