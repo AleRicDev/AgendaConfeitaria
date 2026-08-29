@@ -1,4 +1,5 @@
 const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   mode: "development",
@@ -17,10 +18,27 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
 
   resolve: {
     extensions: [".ts", ".js"],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+
+  devServer: {
+    port: 8080,
+    open: true,
+    liveReload: true,
   },
 }
