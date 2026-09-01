@@ -1,7 +1,9 @@
 export interface Production {
-  id: string;
-  name: string;
-  quantity: number;
-  date: Date;
-  completed: boolean;
+  id: number
+  client: string
+  product: string
+  quantity: number
+  preparationTime: string
+  deliveryDate: string
+  notes: string
 }
