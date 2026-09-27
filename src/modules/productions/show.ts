@@ -8,7 +8,7 @@ export function showProductions(productions: Production[]) {
 
     productions.forEach((production) => {
       const article = document.createElement("article")
-      article.classList.add("list-item")    
+      article.classList.add("list-item")
 
       const itemContent = document.createElement("div")
       itemContent.classList.add("item-content")
@@ -22,10 +22,14 @@ export function showProductions(productions: Production[]) {
       const preparationTime = document.createElement("span")
       preparationTime.textContent = `Horário: ${production.preparationTime}`
 
+      const clientName = document.createElement("span")
+      clientName.textContent = `Cliente: ${production.client}`
+
       itemContent.append(
         productName,
         productQuantity,
-        preparationTime
+        preparationTime,
+        clientName
       )
 
       article.append(itemContent)
