@@ -8,8 +8,10 @@
   <title>Doce Gestão</title>
 
   <!-- Tabler Icons -->
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+  >
 
   <!-- CSS -->
   <link rel="stylesheet" href="./src/css/index.css">
@@ -102,21 +104,31 @@
           </button>
 
           <div class="topbar-text">
-            <p class="topbar-greeting">Olá, Maria 👋</p>
+
+            <p class="topbar-greeting">
+              Olá, Maria 👋
+            </p>
+
             <p class="topbar-date">
               Terça-feira, 24 de junho de 2025
             </p>
+
           </div>
 
         </div>
 
         <div class="topbar-actions">
 
-          <button class="btn btn-outline">
+          <!-- NOVA PRODUÇÃO -->
+          <button
+            class="btn btn-outline"
+            id="new-production-button"
+          >
             <i class="ti ti-plus"></i>
             Nova produção
           </button>
 
+          <!-- NOVA ENCOMENDA -->
           <button class="btn btn-primary">
             <i class="ti ti-clipboard-plus"></i>
             Nova encomenda
@@ -126,6 +138,7 @@
 
       </header>
 
+
       <!-- CONTEÚDO -->
       <main class="content">
 
@@ -133,24 +146,57 @@
         <section class="stats-grid">
 
           <article class="stat-card">
-            <span class="stat-label">Planejadas</span>
-            <h3 class="stat-value">8</h3>
-            <span class="stat-description">produções hoje</span>
+
+            <span class="stat-label">
+              Planejadas
+            </span>
+
+            <h3 class="stat-value">
+              8
+            </h3>
+
+            <span class="stat-description">
+              produções hoje
+            </span>
+
           </article>
 
-          <article class="stat-card">
-            <span class="stat-label">Encomendas</span>
-            <h3 class="stat-value">5</h3>
-            <span class="stat-description">para entregar</span>
-          </article>
 
           <article class="stat-card">
-            <span class="stat-label">Concluídas</span>
-            <h3 class="stat-value is-success">3</h3>
-            <span class="stat-description">finalizadas</span>
+
+            <span class="stat-label">
+              Encomendas
+            </span>
+
+            <h3 class="stat-value">
+              5
+            </h3>
+
+            <span class="stat-description">
+              para entregar
+            </span>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <span class="stat-label">
+              Concluídas
+            </span>
+
+            <h3 class="stat-value is-success">
+              3
+            </h3>
+
+            <span class="stat-description">
+              finalizadas
+            </span>
+
           </article>
 
         </section>
+
 
         <!-- GRID -->
         <section class="grid">
@@ -159,118 +205,111 @@
           <section class="card">
 
             <header class="card-header">
-              <h2 class="card-title">Produções do dia</h2>
-              <a href="#" class="card-link">Ver todas</a>
+
+              <h2 class="card-title">
+                Produções do dia
+              </h2>
+
+              <a href="#" class="card-link">
+                Ver todas
+              </a>
+
             </header>
 
-            <div class="list" id="production-list">
 
-
-              <article class="list-item">
-
-                <div class="item-icon icon-purple">
-                  <i class="ti ti-candy"></i>
-                </div>
-
-                <div class="item-content">
-                  <strong>Brigadeiro Gourmet</strong>
-                  <span>100 unidades</span>
-
-                  <div class="progress">
-                    <div class="progress-bar progress-warning" style="width:55%"></div>
-                  </div>
-                </div>
-
-                <span class="badge badge-warning">
-                  Em andamento
-                </span>
-
-              </article>
-
-              <article class="list-item">
-
-                <div class="item-icon icon-gray">
-                  <i class="ti ti-cookie"></i>
-                </div>
-
-                <div class="item-content">
-                  <strong>Brownie Tradicional</strong>
-                  <span>30 unidades</span>
-
-                  <div class="progress">
-                    <div class="progress-bar progress-danger" style="width:0%"></div>
-                  </div>
-                </div>
-
-                <span class="badge badge-danger">
-                  Pendente
-                </span>
-
-              </article>
-
-              <article class="list-item">
-
-                <div class="item-icon icon-green">
-                  <i class="ti ti-cake"></i>
-                </div>
-
-                <div class="item-content">
-                  <strong>Bolo de Cenoura</strong>
-                  <span>5 unidades</span>
-
-                  <div class="progress">
-                    <div class="progress-bar progress-success" style="width:100%"></div>
-                  </div>
-                </div>
-
-                <span class="badge badge-success">
-                  Concluído
-                </span>
-
-              </article>
-
-            </div>
+            <!--
+              O show.ts cria os cards das produções
+              dinamicamente dentro desta div.
+            -->
+            <div
+              class="list"
+              id="production-list"
+            ></div>
 
           </section>
+
 
           <!-- ENCOMENDAS -->
           <section class="card">
 
             <header class="card-header">
-              <h2 class="card-title">Encomendas</h2>
-              <a href="#" class="card-link">Ver todas</a>
+
+              <h2 class="card-title">
+                Encomendas
+              </h2>
+
+              <a href="#" class="card-link">
+                Ver todas
+              </a>
+
             </header>
+
 
             <div class="list">
 
+              <!-- ENCOMENDA 1 -->
               <article class="list-item">
 
-                <div class="avatar">JS</div>
+                <div class="avatar">
+                  JS
+                </div>
 
                 <div class="item-content">
-                  <strong>João Silva</strong>
-                  <span>Bolo de Chocolate</span>
+
+                  <strong>
+                    João Silva
+                  </strong>
+
+                  <span>
+                    Bolo de Chocolate
+                  </span>
+
                 </div>
 
                 <div class="item-meta">
-                  <strong>15:00</strong>
-                  <span>Hoje</span>
+
+                  <strong>
+                    15:00
+                  </strong>
+
+                  <span>
+                    Hoje
+                  </span>
+
                 </div>
 
               </article>
 
+
+              <!-- ENCOMENDA 2 -->
               <article class="list-item">
 
-                <div class="avatar">AC</div>
+                <div class="avatar">
+                  AC
+                </div>
 
                 <div class="item-content">
-                  <strong>Ana Costa</strong>
-                  <span>Brigadeiros</span>
+
+                  <strong>
+                    Ana Costa
+                  </strong>
+
+                  <span>
+                    Brigadeiros
+                  </span>
+
                 </div>
 
                 <div class="item-meta">
-                  <strong>18:30</strong>
-                  <span>Hoje</span>
+
+                  <strong>
+                    18:30
+                  </strong>
+
+                  <span>
+                    Hoje
+                  </span>
+
                 </div>
 
               </article>
@@ -282,6 +321,7 @@
         </section>
 
       </main>
+
 
       <!-- MOBILE NAV -->
       <nav class="mobile-nav">
@@ -317,7 +357,166 @@
 
   </div>
 
-  
+
+  <!-- ====================================== -->
+  <!-- MODAL - NOVA PRODUÇÃO -->
+  <!-- ====================================== -->
+
+  <div
+    class="modal"
+    id="production-modal"
+  >
+
+    <div class="modal-content">
+
+      <!-- CABEÇALHO -->
+      <header class="modal-header">
+
+        <h2>
+          Nova produção
+        </h2>
+
+        <button
+          type="button"
+          class="icon-button"
+          id="production-modal-close"
+          aria-label="Fechar"
+        >
+          <i class="ti ti-x"></i>
+        </button>
+
+      </header>
+
+
+      <!-- FORMULÁRIO -->
+      <form id="production-form">
+
+        <!-- CLIENTE -->
+        <div class="form-group">
+
+          <label for="client">
+            Cliente
+          </label>
+
+          <input
+            type="text"
+            id="client"
+            name="client"
+            required
+          >
+
+        </div>
+
+
+        <!-- PRODUTO -->
+        <div class="form-group">
+
+          <label for="product">
+            Produto
+          </label>
+
+          <input
+            type="text"
+            id="product"
+            name="product"
+            required
+          >
+
+        </div>
+
+
+        <!-- QUANTIDADE -->
+        <div class="form-group">
+
+          <label for="quantity">
+            Quantidade
+          </label>
+
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            required
+          >
+
+        </div>
+
+
+        <!-- HORÁRIO DE PREPARO -->
+        <div class="form-group">
+
+          <label for="preparation-time">
+            Horário de preparo
+          </label>
+
+          <input
+            type="time"
+            id="preparation-time"
+            name="preparationTime"
+            required
+          >
+
+        </div>
+
+
+        <!-- DATA -->
+        <div class="form-group">
+
+          <label for="delivery-date">
+            Data
+          </label>
+
+          <input
+            type="date"
+            id="delivery-date"
+            name="deliveryDate"
+            required
+          >
+
+        </div>
+
+
+        <!-- OBSERVAÇÕES -->
+        <div class="form-group">
+
+          <label for="notes">
+            Observações
+          </label>
+
+          <textarea
+            id="notes"
+            name="notes"
+          ></textarea>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-outline"
+            id="production-modal-cancel"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Salvar produção
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
 
 </body>
 
