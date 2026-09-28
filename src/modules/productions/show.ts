@@ -10,6 +10,14 @@ export function showProductions(productions: Production[]) {
       const article = document.createElement("article")
       article.classList.add("list-item")
 
+      const itemIcon = document.createElement("div")
+      itemIcon.classList.add("item-icon", "icon-purple")
+
+      const icon = document.createElement("i")
+      icon.classList.add("ti", "ti-cake")
+
+      itemIcon.append(icon)
+
       const itemContent = document.createElement("div")
       itemContent.classList.add("item-content")
 
@@ -32,7 +40,7 @@ export function showProductions(productions: Production[]) {
         clientName
       )
 
-      article.append(itemContent)
+      article.append(itemIcon, itemContent)
 
       productionList.append(article)
     })
