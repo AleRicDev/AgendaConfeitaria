@@ -7,3 +7,5 @@ export interface Production {
   deliveryDate: string
   notes: string
 }
+
+export type NewProduction = Omit<Production, "id">
