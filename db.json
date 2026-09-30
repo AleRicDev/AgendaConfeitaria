@@ -1,13 +1,13 @@
 {
   "productions": [
     {
-      "id": 1,
-      "client": "Maria",
-      "product": "Bolo de chocolate",
+      "client": "Alessandro",
+      "product": "Bolo de cenoura",
       "quantity": 2,
-      "preparationTime": "09:00",
-      "deliveryDate": "2026-08-27",
-      "notes": "Sem morango"
+      "preparationTime": "05:31",
+      "deliveryDate": "2026-10-01",
+      "notes": "Bem molhado.",
+      "id": 1
     }
   ]
 }
