@@ -8,4 +8,4 @@ export interface Production {
   notes: string
 }
 
-export type NewProduction = Omit<Production, "id">
+export type ProductionInput = Omit<Production, "id">
