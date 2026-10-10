@@ -16,7 +16,7 @@ function openProductionModal() {
   productionModal?.classList.add("is-open")
 }
 
-function closeProductionModal() {
+export function closeProductionModal() {
   productionModal?.classList.remove("is-open")
 }
 
