@@ -1,6 +1,7 @@
 import type { ProductionInput } from "../../models/production"
 import { createProduction } from "../../services/production-create"
 import { closeProductionModal } from "./modal"
+import { loadProductions } from "./load"
 
 const productionForm =
   document.querySelector<HTMLFormElement>("#production-form")
@@ -46,11 +47,14 @@ productionForm?.addEventListener("submit", async (event) => {
     notes: notesInput.value,
   }
 
- const createdProduction =
-  await createProduction(productionData)
+  const createdProduction =
+    await createProduction(productionData)
 
-console.log(createdProduction)
+  console.log(createdProduction)
 
-productionForm.reset()
-closeProductionModal()
+  productionForm.reset()
+
+  closeProductionModal()
+
+  await loadProductions()
 })
