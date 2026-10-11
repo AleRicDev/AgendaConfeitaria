@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -138,7 +139,6 @@
 
       </header>
 
-
       <!-- CONTEÚDO -->
       <main class="content">
 
@@ -161,7 +161,6 @@
 
           </article>
 
-
           <article class="stat-card">
 
             <span class="stat-label">
@@ -177,7 +176,6 @@
             </span>
 
           </article>
-
 
           <article class="stat-card">
 
@@ -197,7 +195,6 @@
 
         </section>
 
-
         <!-- GRID -->
         <section class="grid">
 
@@ -216,7 +213,6 @@
 
             </header>
 
-
             <!--
               O show.ts cria os cards das produções
               dinamicamente dentro desta div.
@@ -227,7 +223,6 @@
             ></div>
 
           </section>
-
 
           <!-- ENCOMENDAS -->
           <section class="card">
@@ -243,7 +238,6 @@
               </a>
 
             </header>
-
 
             <div class="list">
 
@@ -279,7 +273,6 @@
                 </div>
 
               </article>
-
 
               <!-- ENCOMENDA 2 -->
               <article class="list-item">
@@ -322,7 +315,6 @@
 
       </main>
 
-
       <!-- MOBILE NAV -->
       <nav class="mobile-nav">
 
@@ -357,7 +349,6 @@
 
   </div>
 
-
   <!-- ====================================== -->
   <!-- MODAL - NOVA PRODUÇÃO -->
   <!-- ====================================== -->
@@ -387,7 +378,6 @@
 
       </header>
 
-
       <!-- FORMULÁRIO -->
       <form id="production-form">
 
@@ -407,7 +397,6 @@
 
         </div>
 
-
         <!-- PRODUTO -->
         <div class="form-group">
 
@@ -423,7 +412,6 @@
           >
 
         </div>
-
 
         <!-- QUANTIDADE -->
         <div class="form-group">
@@ -442,7 +430,6 @@
 
         </div>
 
-
         <!-- HORÁRIO DE PREPARO -->
         <div class="form-group">
 
@@ -458,7 +445,6 @@
           >
 
         </div>
-
 
         <!-- DATA -->
         <div class="form-group">
@@ -476,7 +462,6 @@
 
         </div>
 
-
         <!-- OBSERVAÇÕES -->
         <div class="form-group">
 
@@ -491,6 +476,16 @@
 
         </div>
 
+        <!-- MENSAGEM DE ERRO -->
+        <p
+          id="production-form-error"
+          class="form-error"
+          role="alert"
+          hidden
+        >
+          Não foi possível cadastrar a produção.
+          Verifique a conexão e tente novamente.
+        </p>
 
         <!-- BOTÕES -->
         <div class="modal-actions">

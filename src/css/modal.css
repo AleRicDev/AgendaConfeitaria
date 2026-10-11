@@ -1,3 +1,4 @@
+
 .modal {
   position: fixed;
   inset: 0;
@@ -70,4 +71,23 @@
   gap: 12px;
 
   margin-top: 8px;
+}
+
+/* MENSAGEM DE ERRO */
+
+.form-error {
+  padding: 12px 16px;
+
+  background-color: #fef2f2;
+  color: #b91c1c;
+
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form-error[hidden] {
+  display: none;
 }

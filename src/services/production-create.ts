@@ -7,6 +7,7 @@ import type {
 export async function createProduction(
   productionData: ProductionInput
 ): Promise<Production> {
+
   const response = await fetch(
     `${apiConfig.baseURL}/productions`,
     {
@@ -19,6 +20,10 @@ export async function createProduction(
       body: JSON.stringify(productionData),
     }
   )
+
+  if (!response.ok) {
+    throw new Error("Não foi possível cadastrar a produção.")
+  }
 
   const createdProduction = await response.json()
 

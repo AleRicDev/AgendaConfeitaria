@@ -1,3 +1,4 @@
+
 import type { ProductionInput } from "../../models/production"
 import { createProduction } from "../../services/production-create"
 import { closeProductionModal } from "./modal"
@@ -24,9 +25,18 @@ const deliveryDateInput =
 const notesInput =
   document.querySelector<HTMLTextAreaElement>("#notes")
 
+const errorMessage =
+  document.querySelector<HTMLParagraphElement>("#production-form-error")
+
 productionForm?.addEventListener("submit", async (event) => {
   event.preventDefault()
 
+  // Esconde uma mensagem de erro anterior
+  if (errorMessage) {
+    errorMessage.hidden = true
+  }
+
+  // Verifica se os elementos do formulário existem
   if (
     !clientInput ||
     !productInput ||
@@ -38,6 +48,7 @@ productionForm?.addEventListener("submit", async (event) => {
     return
   }
 
+  // Monta o objeto com os dados do formulário
   const productionData: ProductionInput = {
     client: clientInput.value,
     product: productInput.value,
@@ -47,11 +58,23 @@ productionForm?.addEventListener("submit", async (event) => {
     notes: notesInput.value,
   }
 
-  const createdProduction =
-    await createProduction(productionData)
+  // Tenta cadastrar a produção na API
+  try {
+    const createdProduction = await createProduction(productionData)
 
-  console.log(createdProduction)
+    console.log(createdProduction)
+  } catch (error) {
+    console.error("Erro ao cadastrar produção:", error)
 
+    // Exibe a mensagem de erro no modal
+    if (errorMessage) {
+      errorMessage.hidden = false
+    }
+
+    return
+  }
+
+  // Executado após o cadastro bem-sucedido
   productionForm.reset()
 
   closeProductionModal()
