@@ -1,8 +1,11 @@
 
 import type { Production } from "../../models/production"
-import { deleteProduction } from "../../services/production-delete"
 
-const productionList = document.querySelector("#production-list")
+import { deleteProduction } from "../../services/production-delete"
+import { openEditProductionModal } from "./modal"
+
+const productionList =
+  document.querySelector("#production-list")
 
 export function showProductions(
   productions: Production[],
@@ -12,7 +15,7 @@ export function showProductions(
     productionList.innerHTML = ""
 
     productions.forEach((production) => {
-      // Cria o card da produção
+      // Cria o card
       const article = document.createElement("article")
       article.classList.add("list-item")
 
@@ -25,27 +28,22 @@ export function showProductions(
 
       itemIcon.append(icon)
 
-      // Cria o conteúdo do card
+      // Cria o conteúdo
       const itemContent = document.createElement("div")
       itemContent.classList.add("item-content")
 
-      // Nome do produto
       const productName = document.createElement("strong")
       productName.textContent = production.product
 
-      // Quantidade
       const productQuantity = document.createElement("span")
       productQuantity.textContent = `${production.quantity} unidades`
 
-      // Horário de preparo
       const preparationTime = document.createElement("span")
       preparationTime.textContent = `Horário: ${production.preparationTime}`
 
-      // Nome do cliente
       const clientName = document.createElement("span")
       clientName.textContent = `Cliente: ${production.client}`
 
-      // Organiza as informações dentro do card
       itemContent.append(
         productName,
         productQuantity,
@@ -53,13 +51,22 @@ export function showProductions(
         clientName
       )
 
-      // Cria o botão de exclusão
+      // Botão Editar
+      const editButton = document.createElement("button")
+      editButton.type = "button"
+      editButton.classList.add("btn", "btn-outline")
+      editButton.textContent = "Editar"
+
+      editButton.addEventListener("click", () => {
+        openEditProductionModal(production)
+      })
+
+      // Botão Excluir
       const deleteButton = document.createElement("button")
       deleteButton.type = "button"
       deleteButton.classList.add("btn", "btn-outline")
       deleteButton.textContent = "Excluir"
 
-      // Evento de exclusão
       deleteButton.addEventListener("click", async () => {
         const shouldDelete = window.confirm(
           `Deseja realmente excluir "${production.product}"?`
@@ -69,7 +76,6 @@ export function showProductions(
           return
         }
 
-        // Tenta excluir a produção na API
         try {
           await deleteProduction(production.id)
 
@@ -79,7 +85,6 @@ export function showProductions(
           return
         }
 
-        // Tenta atualizar a lista após a exclusão
         try {
           await refreshProductions()
         } catch (error) {
@@ -90,10 +95,15 @@ export function showProductions(
         }
       })
 
-      // Monta o card completo
-      article.append(itemIcon, itemContent, deleteButton)
+      // Monta o card
+      article.append(
+        itemIcon,
+        itemContent,
+        editButton,
+        deleteButton
+      )
 
-      // Insere o card na lista
+      // Adiciona à lista
       productionList.append(article)
     })
   }

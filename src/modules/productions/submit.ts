@@ -1,6 +1,9 @@
 
 import type { ProductionInput } from "../../models/production"
+
 import { createProduction } from "../../services/production-create"
+import { updateProduction } from "../../services/production-update"
+
 import { closeProductionModal } from "./modal"
 import { loadProductions } from "./load"
 
@@ -31,12 +34,11 @@ const errorMessage =
 productionForm?.addEventListener("submit", async (event) => {
   event.preventDefault()
 
-  // Esconde uma mensagem de erro anterior
   if (errorMessage) {
     errorMessage.hidden = true
   }
 
-  // Verifica se os elementos do formulário existem
+  // Verifica se os elementos existem
   if (
     !clientInput ||
     !productInput ||
@@ -48,7 +50,7 @@ productionForm?.addEventListener("submit", async (event) => {
     return
   }
 
-  // Monta o objeto com os dados do formulário
+  // Captura os dados do formulário
   const productionData: ProductionInput = {
     client: clientInput.value,
     product: productInput.value,
@@ -58,26 +60,71 @@ productionForm?.addEventListener("submit", async (event) => {
     notes: notesInput.value,
   }
 
-  // Tenta cadastrar a produção na API
+  // Identifica a operação
+  const mode = productionForm.dataset.mode
+  const editingId = productionForm.dataset.editingId
+
   try {
-    const createdProduction = await createProduction(productionData)
+    if (mode === "edit") {
+      // Garante que uma edição possui um ID válido
+      if (
+        editingId === undefined ||
+        editingId.trim() === "" ||
+        !Number.isSafeInteger(Number(editingId))
+      ) {
+        throw new Error("ID de edição inválido.")
+      }
 
-    console.log(createdProduction)
+      // Atualiza a produção existente
+      const updatedProduction = await updateProduction(
+        Number(editingId),
+        productionData
+      )
+
+      console.log("Produção atualizada:", updatedProduction)
+
+    } else if (mode === "create") {
+      // Cadastra uma nova produção
+      const createdProduction =
+        await createProduction(productionData)
+
+      console.log("Produção criada:", createdProduction)
+
+    } else {
+      throw new Error("Modo do formulário inválido.")
+    }
+
   } catch (error) {
-    console.error("Erro ao cadastrar produção:", error)
+    console.error("Erro ao salvar produção:", error)
 
-    // Exibe a mensagem de erro no modal
     if (errorMessage) {
+      errorMessage.textContent = mode === "edit"
+        ? "Não foi possível atualizar a produção. Tente novamente."
+        : "Não foi possível cadastrar a produção. Tente novamente."
+
       errorMessage.hidden = false
     }
 
     return
   }
 
-  // Executado após o cadastro bem-sucedido
+  // Limpa o formulário
   productionForm.reset()
 
+  // Limpa o estado anterior
+  delete productionForm.dataset.editingId
+  productionForm.dataset.mode = "create"
+
+  // Fecha o modal
   closeProductionModal()
 
-  await loadProductions()
+  // Atualiza a lista
+  try {
+    await loadProductions()
+  } catch (error) {
+    console.error(
+      "Produção salva, mas não foi possível atualizar a lista:",
+      error
+    )
+  }
 })
