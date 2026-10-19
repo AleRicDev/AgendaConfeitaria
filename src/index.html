@@ -92,7 +92,7 @@
 
     </aside>
 
-    <!-- MAIN -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="main-layout">
 
       <!-- TOPBAR -->
@@ -100,18 +100,22 @@
 
         <div class="topbar-left">
 
-          <button class="icon-button" aria-label="Abrir menu">
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Abrir menu"
+          >
             <i class="ti ti-menu-2"></i>
           </button>
 
           <div class="topbar-text">
 
             <p class="topbar-greeting">
-              Olá, Maria 👋
+              Olá, Maria
             </p>
 
             <p class="topbar-date">
-              Terça-feira, 24 de junho de 2025
+              Agenda de encomendas
             </p>
 
           </div>
@@ -120,18 +124,13 @@
 
         <div class="topbar-actions">
 
-          <!-- NOVA PRODUÇÃO -->
+          <!-- ABRE O MODAL DE CADASTRO -->
           <button
-            class="btn btn-outline"
+            type="button"
+            class="btn btn-primary"
             id="new-production-button"
           >
             <i class="ti ti-plus"></i>
-            Nova produção
-          </button>
-
-          <!-- NOVA ENCOMENDA -->
-          <button class="btn btn-primary">
-            <i class="ti ti-clipboard-plus"></i>
             Nova encomenda
           </button>
 
@@ -142,7 +141,7 @@
       <!-- CONTEÚDO -->
       <main class="content">
 
-        <!-- STATS -->
+        <!-- INDICADORES VISUAIS TEMPORÁRIOS -->
         <section class="stats-grid">
 
           <article class="stat-card">
@@ -195,27 +194,23 @@
 
         </section>
 
-        <!-- GRID -->
+        <!-- GRID PRINCIPAL -->
         <section class="grid">
 
-          <!-- PRODUÇÕES -->
+          <!-- LISTAGEM DINÂMICA DE ENCOMENDAS -->
           <section class="card">
 
             <header class="card-header">
 
               <h2 class="card-title">
-                Produções do dia
+                Encomendas cadastradas
               </h2>
-
-              <a href="#" class="card-link">
-                Ver todas
-              </a>
 
             </header>
 
             <!--
-              O show.ts cria os cards das produções
-              dinamicamente dentro desta div.
+              O show.ts cria os cartões
+              dinamicamente dentro deste container.
             -->
             <div
               class="list"
@@ -224,24 +219,19 @@
 
           </section>
 
-          <!-- ENCOMENDAS -->
+          <!-- SEÇÃO ESTÁTICA TEMPORÁRIA -->
           <section class="card">
 
             <header class="card-header">
 
               <h2 class="card-title">
-                Encomendas
+                Próximas entregas
               </h2>
-
-              <a href="#" class="card-link">
-                Ver todas
-              </a>
 
             </header>
 
             <div class="list">
 
-              <!-- ENCOMENDA 1 -->
               <article class="list-item">
 
                 <div class="avatar">
@@ -255,7 +245,7 @@
                   </strong>
 
                   <span>
-                    Bolo de Chocolate
+                    Bolo de chocolate
                   </span>
 
                 </div>
@@ -267,14 +257,13 @@
                   </strong>
 
                   <span>
-                    Hoje
+                    Exemplo
                   </span>
 
                 </div>
 
               </article>
 
-              <!-- ENCOMENDA 2 -->
               <article class="list-item">
 
                 <div class="avatar">
@@ -300,7 +289,7 @@
                   </strong>
 
                   <span>
-                    Hoje
+                    Exemplo
                   </span>
 
                 </div>
@@ -315,30 +304,45 @@
 
       </main>
 
-      <!-- MOBILE NAV -->
+      <!-- NAVEGAÇÃO MOBILE -->
       <nav class="mobile-nav">
 
-        <button class="mobile-nav-item is-active">
+        <button
+          type="button"
+          class="mobile-nav-item is-active"
+        >
           <i class="ti ti-home"></i>
           <span>Home</span>
         </button>
 
-        <button class="mobile-nav-item">
+        <button
+          type="button"
+          class="mobile-nav-item"
+        >
           <i class="ti ti-calendar"></i>
           <span>Agenda</span>
         </button>
 
-        <button class="mobile-nav-item">
+        <button
+          type="button"
+          class="mobile-nav-item"
+        >
           <i class="ti ti-clipboard-list"></i>
           <span>Produtos</span>
         </button>
 
-        <button class="mobile-nav-item">
+        <button
+          type="button"
+          class="mobile-nav-item"
+        >
           <i class="ti ti-chart-bar"></i>
           <span>Financeiro</span>
         </button>
 
-        <button class="mobile-nav-item">
+        <button
+          type="button"
+          class="mobile-nav-item"
+        >
           <i class="ti ti-settings"></i>
           <span>Config</span>
         </button>
@@ -349,22 +353,24 @@
 
   </div>
 
-  <!-- ====================================== -->
-  <!-- MODAL - NOVA PRODUÇÃO -->
-  <!-- ====================================== -->
-
+  <!-- MODAL CENTRALIZADO -->
   <div
     class="modal"
     id="production-modal"
   >
 
-    <div class="modal-content">
+    <div
+      class="modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="production-modal-title"
+    >
 
       <!-- CABEÇALHO -->
       <header class="modal-header">
 
-        <h2>
-          Nova produção
+        <h2 id="production-modal-title">
+          Nova encomenda
         </h2>
 
         <button
@@ -397,66 +403,81 @@
 
         </div>
 
-        <!-- PRODUTO -->
+        <!-- ITENS DA ENCOMENDA -->
         <div class="form-group">
 
-          <label for="product">
-            Produto
+          <label>
+            Itens da encomenda
           </label>
 
-          <input
-            type="text"
-            id="product"
-            name="product"
-            required
+          <!--
+            IMPORTANTE:
+
+            Este container começa vazio.
+
+            O modal.ts cria as linhas com:
+            createItemRow() e renderItemRows().
+
+            Não adicione campos fixos aqui.
+          -->
+          <div id="production-items"></div>
+
+          <button
+            type="button"
+            id="add-item-button"
+            class="btn btn-outline"
           >
+            <i class="ti ti-plus"></i>
+            Adicionar produto
+          </button>
 
         </div>
 
-        <!-- QUANTIDADE -->
-        <div class="form-group">
-
-          <label for="quantity">
-            Quantidade
-          </label>
-
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            required
-          >
-
-        </div>
-
-        <!-- HORÁRIO DE PREPARO -->
-        <div class="form-group">
-
-          <label for="preparation-time">
-            Horário de preparo
-          </label>
-
-          <input
-            type="time"
-            id="preparation-time"
-            name="preparationTime"
-            required
-          >
-
-        </div>
-
-        <!-- DATA -->
+        <!-- DATA DE ENTREGA -->
         <div class="form-group">
 
           <label for="delivery-date">
-            Data
+            Data de entrega
           </label>
 
           <input
             type="date"
             id="delivery-date"
             name="deliveryDate"
+            required
+          >
+
+        </div>
+
+        <!-- HORÁRIO DE ENTREGA -->
+        <div class="form-group">
+
+          <label for="delivery-time">
+            Horário de entrega
+          </label>
+
+          <input
+            type="time"
+            id="delivery-time"
+            name="deliveryTime"
+            required
+          >
+
+        </div>
+
+        <!-- VALOR FINAL -->
+        <div class="form-group">
+
+          <label for="total-value">
+            Valor total da encomenda (R$)
+          </label>
+
+          <input
+            type="number"
+            id="total-value"
+            name="totalValue"
+            min="0"
+            step="0.01"
             required
           >
 
@@ -483,11 +504,10 @@
           role="alert"
           hidden
         >
-          Não foi possível cadastrar a produção.
-          Verifique a conexão e tente novamente.
+          Não foi possível salvar a encomenda.
         </p>
 
-        <!-- BOTÕES -->
+        <!-- AÇÕES -->
         <div class="modal-actions">
 
           <button
@@ -502,7 +522,7 @@
             type="submit"
             class="btn btn-primary"
           >
-            Salvar produção
+            Salvar encomenda
           </button>
 
         </div>

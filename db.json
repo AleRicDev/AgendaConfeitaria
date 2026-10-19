@@ -1,13 +1,44 @@
 {
   "productions": [
     {
-      "client": "Alessandro",
-      "product": "Bolo de cenoura",
-      "quantity": 2,
-      "preparationTime": "05:31",
-      "deliveryDate": "2026-10-01",
-      "notes": "Bem molhado.",
-      "id": 1
+      "id": 2,
+      "client": "Gabriel",
+      "items": [
+        {
+          "name": "Pavê tradicional",
+          "quantity": 1
+        },
+        {
+          "name": "Pavê de limão",
+          "quantity": 2
+        }
+      ],
+      "deliveryDate": "2026-10-13",
+      "deliveryTime": "14:26",
+      "totalValue": 200,
+      "notes": "Nada",
+      "status": "Pendente",
+      "completedAt": null
+    },
+    {
+      "client": "Ale",
+      "items": [
+        {
+          "name": "Brigadeiro",
+          "quantity": 222
+        },
+        {
+          "name": "Beijinho",
+          "quantity": 100
+        }
+      ],
+      "deliveryDate": "2026-10-19",
+      "deliveryTime": "15:02",
+      "totalValue": 200,
+      "notes": "Nenhuma.",
+      "status": "Pendente",
+      "completedAt": null,
+      "id": 3
     }
   ]
 }

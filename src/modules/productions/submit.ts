@@ -1,5 +1,8 @@
 
-import type { ProductionInput } from "../../models/production"
+import type {
+  ProductionInput,
+  ProductionItem
+} from "../../models/production"
 
 import { createProduction } from "../../services/production-create"
 import { updateProduction } from "../../services/production-update"
@@ -7,29 +10,35 @@ import { updateProduction } from "../../services/production-update"
 import { closeProductionModal } from "./modal"
 import { loadProductions } from "./load"
 
+// Formulário
 const productionForm =
   document.querySelector<HTMLFormElement>("#production-form")
 
+// Campos principais
 const clientInput =
   document.querySelector<HTMLInputElement>("#client")
-
-const productInput =
-  document.querySelector<HTMLInputElement>("#product")
-
-const quantityInput =
-  document.querySelector<HTMLInputElement>("#quantity")
-
-const preparationTimeInput =
-  document.querySelector<HTMLInputElement>("#preparation-time")
 
 const deliveryDateInput =
   document.querySelector<HTMLInputElement>("#delivery-date")
 
+const deliveryTimeInput =
+  document.querySelector<HTMLInputElement>("#delivery-time")
+
+const totalValueInput =
+  document.querySelector<HTMLInputElement>("#total-value")
+
 const notesInput =
   document.querySelector<HTMLTextAreaElement>("#notes")
 
+// Container dos itens
+const itemsContainer =
+  document.querySelector<HTMLDivElement>("#production-items")
+
+// Mensagem de erro
 const errorMessage =
-  document.querySelector<HTMLParagraphElement>("#production-form-error")
+  document.querySelector<HTMLParagraphElement>(
+    "#production-form-error"
+  )
 
 productionForm?.addEventListener("submit", async (event) => {
   event.preventDefault()
@@ -38,69 +47,136 @@ productionForm?.addEventListener("submit", async (event) => {
     errorMessage.hidden = true
   }
 
-  // Verifica se os elementos existem
   if (
     !clientInput ||
-    !productInput ||
-    !quantityInput ||
-    !preparationTimeInput ||
     !deliveryDateInput ||
-    !notesInput
+    !deliveryTimeInput ||
+    !totalValueInput ||
+    !notesInput ||
+    !itemsContainer
   ) {
     return
   }
 
-  // Captura os dados do formulário
-  const productionData: ProductionInput = {
-    client: clientInput.value,
-    product: productInput.value,
-    quantity: Number(quantityInput.value),
-    preparationTime: preparationTimeInput.value,
-    deliveryDate: deliveryDateInput.value,
-    notes: notesInput.value,
-  }
-
-  // Identifica a operação
   const mode = productionForm.dataset.mode
   const editingId = productionForm.dataset.editingId
 
   try {
-    if (mode === "edit") {
-      // Garante que uma edição possui um ID válido
+    // 1. Captura as linhas de produtos
+    const itemRows =
+      itemsContainer.querySelectorAll<HTMLDivElement>(
+        ".production-item-row"
+      )
+
+    // 2. Prepara o array de itens
+    const items: ProductionItem[] = []
+
+    if (itemRows.length === 0) {
+      throw new Error("Adicione pelo menos um produto.")
+    }
+
+    // 3. Percorre cada linha do formulário
+    itemRows.forEach((row) => {
+      const nameInput =
+        row.querySelector<HTMLInputElement>(
+          ".item-name-input"
+        )
+
+      const quantityInput =
+        row.querySelector<HTMLInputElement>(
+          ".item-quantity-input"
+        )
+
+      if (!nameInput || !quantityInput) {
+        throw new Error("Campos de produto não encontrados.")
+      }
+
+      const name = nameInput.value.trim()
+      const quantity = Number(quantityInput.value)
+
       if (
-        editingId === undefined ||
-        editingId.trim() === "" ||
-        !Number.isSafeInteger(Number(editingId))
+        name === "" ||
+        quantityInput.value.trim() === "" ||
+        !Number.isInteger(quantity) ||
+        quantity <= 0
+      ) {
+        throw new Error(
+          "Informe um nome e uma quantidade inteira positiva para cada produto."
+        )
+      }
+
+      // 4. Adiciona o produto ao array
+      items.push({
+        name,
+        quantity
+      })
+    })
+
+    const client = clientInput.value.trim()
+    const totalValue = Number(totalValueInput.value)
+
+    if (client === "") {
+      throw new Error("Informe o nome do cliente.")
+    }
+
+    if (
+      !deliveryDateInput.value ||
+      !deliveryTimeInput.value
+    ) {
+      throw new Error("Informe a data e o horário de entrega.")
+    }
+
+    if (
+      totalValueInput.value.trim() === "" ||
+      !Number.isFinite(totalValue) ||
+      totalValue < 0 ||
+      !Number.isInteger(Math.round(totalValue * 10000) / 100)
+    ) {
+      throw new Error(
+        "Informe um valor total válido, com até duas casas decimais."
+      )
+    }
+
+    // 5. Monta a encomenda
+    const productionData: ProductionInput = {
+      client,
+      items,
+      deliveryDate: deliveryDateInput.value,
+      deliveryTime: deliveryTimeInput.value,
+      totalValue,
+      notes: notesInput.value.trim()
+    }
+
+    // 6. Decide entre editar e cadastrar
+    if (mode === "edit") {
+      if (
+        !editingId ||
+        !Number.isSafeInteger(Number(editingId)) ||
+        Number(editingId) <= 0
       ) {
         throw new Error("ID de edição inválido.")
       }
 
-      // Atualiza a produção existente
-      const updatedProduction = await updateProduction(
+      await updateProduction(
         Number(editingId),
         productionData
       )
 
-      console.log("Produção atualizada:", updatedProduction)
-
     } else if (mode === "create") {
-      // Cadastra uma nova produção
-      const createdProduction =
-        await createProduction(productionData)
-
-      console.log("Produção criada:", createdProduction)
+      await createProduction(productionData)
 
     } else {
       throw new Error("Modo do formulário inválido.")
     }
 
   } catch (error) {
-    console.error("Erro ao salvar produção:", error)
+    console.error("Erro ao salvar encomenda:", error)
 
     if (errorMessage) {
-      errorMessage.textContent = mode === "edit"
-        ? "Não foi possível atualizar a produção. Tente novamente."
-        : "Não foi possível cadastrar a produção. Tente novamente."
+      errorMessage.textContent =
+        error instanceof Error
+          ? error.message
+          : "Não foi possível salvar a encomenda."
 
       errorMessage.hidden = false
     }
@@ -108,22 +184,20 @@ productionForm?.addEventListener("submit", async (event) => {
     return
   }
 
-  // Limpa o formulário
+  // 7. Limpa e fecha o formulário
   productionForm.reset()
 
-  // Limpa o estado anterior
   delete productionForm.dataset.editingId
   productionForm.dataset.mode = "create"
 
-  // Fecha o modal
   closeProductionModal()
 
-  // Atualiza a lista
+  // 8. Atualiza a lista
   try {
     await loadProductions()
   } catch (error) {
     console.error(
-      "Produção salva, mas não foi possível atualizar a lista:",
+      "Encomenda salva, mas não foi possível atualizar a lista:",
       error
     )
   }
