@@ -6,12 +6,11 @@ import type {
 
 import { deleteProduction } from "../../services/production-delete"
 import { updateProductionStatus } from "../../services/production-status"
-
 import { openEditProductionModal } from "./modal"
 
 type DayPeriod = "morning" | "afternoon" | "night"
 
-// Períodos da agenda
+// Containers dos períodos
 const morningList =
   document.querySelector<HTMLDivElement>("#morning-list")
 
@@ -21,14 +20,13 @@ const afternoonList =
 const nightList =
   document.querySelector<HTMLDivElement>("#night-list")
 
-// Opções permitidas para o status
 const statusOptions: ProductionStatus[] = [
   "Pendente",
   "Em produção",
   "Concluída"
 ]
 
-// Identifica o período pelo horário
+// Identifica o período pelo horário de entrega
 function getDayPeriod(deliveryTime: string): DayPeriod {
   const hour = Number(deliveryTime.split(":")[0])
 
@@ -50,9 +48,18 @@ function createProductionCard(
 ): HTMLElement {
 
   const article = document.createElement("article")
-  article.classList.add("list-item")
+  article.classList.add("list-item", "production-card")
 
-  // Ícone
+  // ===================================
+  // CABEÇALHO
+  // ===================================
+
+  const header = document.createElement("div")
+  header.classList.add("production-card-header")
+
+  const identity = document.createElement("div")
+  identity.classList.add("production-identity")
+
   const itemIcon = document.createElement("div")
   itemIcon.classList.add("item-icon", "icon-purple")
 
@@ -61,54 +68,110 @@ function createProductionCard(
 
   itemIcon.append(icon)
 
-  // Conteúdo
-  const itemContent = document.createElement("div")
-  itemContent.classList.add("item-content")
-
   const clientName = document.createElement("strong")
+  clientName.classList.add("production-client")
   clientName.textContent = production.client
+
+  identity.append(itemIcon, clientName)
 
   const deliveryTime = document.createElement("span")
   deliveryTime.classList.add("production-time")
-  deliveryTime.textContent =
-    `Entrega: ${production.deliveryTime}`
+  deliveryTime.textContent = production.deliveryTime
 
-  // Itens da encomenda
+  header.append(identity, deliveryTime)
+
+  // ===================================
+  // PRODUTOS E VALOR
+  // ===================================
+
+  const content = document.createElement("div")
+  content.classList.add("production-card-content")
+
+  const itemsTitle = document.createElement("p")
+  itemsTitle.classList.add("production-section-label")
+  itemsTitle.textContent = "Itens da encomenda"
+
   const itemsList = document.createElement("div")
   itemsList.classList.add("production-items-list")
 
   production.items.forEach((item) => {
-    const itemText = document.createElement("span")
+    const itemRow = document.createElement("div")
+    itemRow.classList.add("production-item")
 
-    itemText.textContent =
-      `${item.name} - ${item.quantity} unidade(s)`
+    const itemName = document.createElement("span")
+    itemName.textContent = item.name
 
-    itemsList.append(itemText)
+    const itemQuantity = document.createElement("span")
+    itemQuantity.textContent = `${item.quantity} un.`
+
+    itemRow.append(itemName, itemQuantity)
+    itemsList.append(itemRow)
   })
 
-  // Valor total
-  const totalValue = document.createElement("span")
+  const totalValue = document.createElement("p")
+  totalValue.classList.add("production-total")
 
-  totalValue.textContent =
-    `Valor: ${production.totalValue.toLocaleString("pt-BR", {
+  const formattedValue = production.totalValue.toLocaleString(
+    "pt-BR",
+    {
       style: "currency",
       currency: "BRL"
-    })}`
+    }
+  )
 
-  // Controle de status
+  totalValue.textContent = `Valor total: ${formattedValue}`
+
+  content.append(
+    itemsTitle,
+    itemsList,
+    totalValue
+  )
+
+  // ===================================
+  // OBSERVAÇÕES EXPANSÍVEIS
+  // ===================================
+
+  const notes = production.notes.trim()
+
+  if (notes !== "") {
+    const details = document.createElement("details")
+    details.classList.add("production-details")
+
+    const summary = document.createElement("summary")
+
+    const showText = document.createElement("span")
+    showText.classList.add("details-show-text")
+    showText.textContent = "Ver detalhes"
+
+    const hideText = document.createElement("span")
+    hideText.classList.add("details-hide-text")
+    hideText.textContent = "Ocultar detalhes"
+
+    summary.append(showText, hideText)
+
+    const notesText = document.createElement("p")
+    notesText.textContent = notes
+
+    details.append(summary, notesText)
+    content.append(details)
+  }
+
+  // ===================================
+  // CONTROLE DE STATUS
+  // ===================================
+
   const statusField = document.createElement("div")
   statusField.classList.add("production-status-field")
 
   const statusLabel = document.createElement("label")
-  statusLabel.textContent = "Status: "
+  statusLabel.textContent = "Status"
 
   const statusSelect = document.createElement("select")
   statusSelect.id = `production-status-${production.id}`
-  statusSelect.classList.add("btn", "btn-outline")
+  statusSelect.classList.add("production-status-select")
 
   statusLabel.htmlFor = statusSelect.id
 
-  // Cria as opções do select
   statusOptions.forEach((status) => {
     const option = document.createElement("option")
 
@@ -118,10 +181,10 @@ function createProductionCard(
     statusSelect.append(option)
   })
 
-  // Define o status atual
   statusSelect.value = production.status
 
   const statusMessage = document.createElement("p")
+  statusMessage.classList.add("production-inline-error")
   statusMessage.setAttribute("role", "alert")
   statusMessage.hidden = true
 
@@ -131,26 +194,41 @@ function createProductionCard(
     statusMessage
   )
 
-  // Ações do cartão
+  // ===================================
+  // BOTÕES DO CARTÃO
+  // ===================================
+
   const actions = document.createElement("div")
   actions.classList.add("production-actions")
 
-  // Botão Editar
   const editButton = document.createElement("button")
   editButton.type = "button"
   editButton.classList.add("btn", "btn-outline")
   editButton.textContent = "Editar"
 
-  editButton.addEventListener("click", () => {
-    openEditProductionModal(production)
-  })
-
-  // Botão Excluir
   const deleteButton = document.createElement("button")
   deleteButton.type = "button"
   deleteButton.classList.add("btn", "btn-outline")
   deleteButton.textContent = "Excluir"
 
+  const actionMessage = document.createElement("p")
+  actionMessage.classList.add("production-inline-error")
+  actionMessage.setAttribute("role", "alert")
+  actionMessage.hidden = true
+
+  // Bloqueia ou libera os controles
+  function setControlsDisabled(disabled: boolean) {
+    statusSelect.disabled = disabled
+    editButton.disabled = disabled
+    deleteButton.disabled = disabled
+  }
+
+  // Editar encomenda
+  editButton.addEventListener("click", () => {
+    openEditProductionModal(production)
+  })
+
+  // Excluir encomenda
   deleteButton.addEventListener("click", async () => {
     const shouldDelete = window.confirm(
       `Deseja excluir a encomenda de ${production.client}?`
@@ -160,10 +238,19 @@ function createProductionCard(
       return
     }
 
+    actionMessage.hidden = true
+    setControlsDisabled(true)
+
     try {
       await deleteProduction(production.id)
     } catch (error) {
       console.error("Erro ao excluir encomenda:", error)
+
+      actionMessage.textContent =
+        "Não foi possível excluir a encomenda."
+      actionMessage.hidden = false
+
+      setControlsDisabled(false)
       return
     }
 
@@ -174,12 +261,17 @@ function createProductionCard(
         "Encomenda excluída, mas a agenda não foi atualizada:",
         error
       )
+
+      actionMessage.textContent =
+        "Encomenda excluída. Atualize a página para recarregar a agenda."
+      actionMessage.hidden = false
     }
   })
 
-  actions.append(editButton, deleteButton)
+  // ===================================
+  // ALTERAÇÃO DE STATUS
+  // ===================================
 
-  // Evento para alterar o status
   statusSelect.addEventListener("change", async () => {
     const previousStatus = production.status
     const nextStatus = statusSelect.value as ProductionStatus
@@ -188,11 +280,8 @@ function createProductionCard(
       return
     }
 
-    // Impede ações simultâneas durante o salvamento
-    statusSelect.disabled = true
-    editButton.disabled = true
-    deleteButton.disabled = true
     statusMessage.hidden = true
+    setControlsDisabled(true)
 
     try {
       const updatedProduction = await updateProductionStatus(
@@ -200,29 +289,22 @@ function createProductionCard(
         nextStatus
       )
 
-      // Atualiza os dados locais após salvar na API
       production.status = updatedProduction.status
       production.completedAt = updatedProduction.completedAt
 
     } catch (error) {
       console.error("Erro ao atualizar status:", error)
 
-      // Restaura a seleção anterior
       statusSelect.value = previousStatus
 
       statusMessage.textContent =
         "Não foi possível alterar o status."
 
       statusMessage.hidden = false
-
-      statusSelect.disabled = false
-      editButton.disabled = false
-      deleteButton.disabled = false
-
+      setControlsDisabled(false)
       return
     }
 
-    // Atualiza a agenda depois da alteração
     try {
       await refreshProductions()
     } catch (error) {
@@ -236,31 +318,32 @@ function createProductionCard(
 
       statusMessage.hidden = false
     } finally {
-      statusSelect.disabled = false
-      editButton.disabled = false
-      deleteButton.disabled = false
+      setControlsDisabled(false)
     }
   })
 
-  // Monta o cartão
-  itemContent.append(
-    clientName,
-    deliveryTime,
-    itemsList,
-    totalValue,
-    statusField
-  )
+  // ===================================
+  // MONTAGEM FINAL
+  // ===================================
+
+  actions.append(editButton, deleteButton)
+
+  const footer = document.createElement("div")
+  footer.classList.add("production-card-footer")
+
+  footer.append(statusField, actions)
 
   article.append(
-    itemIcon,
-    itemContent,
-    actions
+    header,
+    content,
+    footer,
+    actionMessage
   )
 
   return article
 }
 
-// Renderiza um período da agenda
+// Renderiza as encomendas de um período
 function renderPeriod(
   productions: Production[],
   container: HTMLDivElement,
@@ -299,7 +382,6 @@ export function showProductions(
     return
   }
 
-  // Filtra e ordena as encomendas
   const dailyProductions = productions
     .filter((production) => {
       return production.deliveryDate === selectedDate
@@ -308,7 +390,6 @@ export function showProductions(
       return a.deliveryTime.localeCompare(b.deliveryTime)
     })
 
-  // Agrupa pelos períodos
   const groupedProductions: Record<DayPeriod, Production[]> = {
     morning: [],
     afternoon: [],
@@ -321,7 +402,6 @@ export function showProductions(
     groupedProductions[period].push(production)
   })
 
-  // Exibe os três períodos
   renderPeriod(
     groupedProductions.morning,
     morningList,

@@ -51,7 +51,7 @@ const totalValueInput =
 const notesInput =
   document.querySelector<HTMLTextAreaElement>("#notes")
 
-// Elementos responsáveis pelos itens
+// Elementos dos itens
 const itemsContainer =
   document.querySelector<HTMLDivElement>("#production-items")
 
@@ -59,6 +59,14 @@ const addItemButton =
   document.querySelector<HTMLButtonElement>("#add-item-button")
 
 let nextItemIndex = 0
+
+// Formata números para o padrão brasileiro
+function formatMoney(value: number): string {
+  return value.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+}
 
 // Atualiza os botões de remoção
 function updateRemoveButtons() {
@@ -84,7 +92,7 @@ function createItemRow(item?: ProductionItem): HTMLDivElement {
   const row = document.createElement("div")
   row.classList.add("production-item-row")
 
-  // Campo de nome
+  // Nome do produto
   const nameGroup = document.createElement("div")
   nameGroup.classList.add("form-group")
 
@@ -103,7 +111,7 @@ function createItemRow(item?: ProductionItem): HTMLDivElement {
 
   nameGroup.append(nameLabel, nameInput)
 
-  // Campo de quantidade
+  // Quantidade
   const quantityGroup = document.createElement("div")
   quantityGroup.classList.add("form-group")
 
@@ -125,7 +133,7 @@ function createItemRow(item?: ProductionItem): HTMLDivElement {
 
   quantityGroup.append(quantityLabel, quantityInput)
 
-  // Botão remover
+  // Botão Remover
   const removeButton = document.createElement("button")
   removeButton.type = "button"
   removeButton.textContent = "Remover"
@@ -151,7 +159,6 @@ function createItemRow(item?: ProductionItem): HTMLDivElement {
     updateRemoveButtons()
   })
 
-  // Monta a linha
   row.append(
     nameGroup,
     quantityGroup,
@@ -163,7 +170,7 @@ function createItemRow(item?: ProductionItem): HTMLDivElement {
   return row
 }
 
-// Preenche o formulário com as linhas recebidas
+// Renderiza as linhas de produtos
 function renderItemRows(items: ProductionItem[]) {
   if (!itemsContainer) {
     return
@@ -182,7 +189,7 @@ function renderItemRows(items: ProductionItem[]) {
   updateRemoveButtons()
 }
 
-// Abre o modal para uma nova encomenda
+// Abre um cadastro novo
 function openProductionModal() {
   if (!productionForm || !itemsContainer) {
     return
@@ -194,6 +201,11 @@ function openProductionModal() {
   delete productionForm.dataset.editingId
 
   renderItemRows([])
+
+  // Todo cadastro novo começa com R$ 0,00
+  if (totalValueInput) {
+    totalValueInput.value = "0,00"
+  }
 
   if (modalTitle) {
     modalTitle.textContent = "Nova encomenda"
@@ -210,7 +222,7 @@ function openProductionModal() {
   productionModal?.classList.add("is-open")
 }
 
-// Abre o modal para editar uma encomenda
+// Abre uma encomenda para edição
 export function openEditProductionModal(production: Production) {
   if (
     !productionForm ||
@@ -230,7 +242,10 @@ export function openEditProductionModal(production: Production) {
   clientInput.value = production.client
   deliveryDateInput.value = production.deliveryDate
   deliveryTimeInput.value = production.deliveryTime
-  totalValueInput.value = String(production.totalValue)
+
+  // Exemplo: 150.5 (API) -> "150,50" (formulário)
+  totalValueInput.value = formatMoney(production.totalValue)
+
   notesInput.value = production.notes
 
   renderItemRows(production.items)

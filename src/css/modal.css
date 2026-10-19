@@ -1,63 +1,134 @@
 
+/* ================================
+   MODAL - ESTRUTURA
+================================ */
+
 .modal {
   position: fixed;
   inset: 0;
+  z-index: 1000;
 
   display: none;
   align-items: center;
   justify-content: center;
 
-  padding: 24px;
+  padding: 16px;
 
-  background: rgba(0, 0, 0, 0.4);
-
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .modal.is-open {
   display: flex;
 }
 
+/* ================================
+   CONTEÚDO DO MODAL
+================================ */
+
 .modal-content {
   width: 100%;
-  max-width: 500px;
+  max-width: 640px;
+
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 
   padding: 24px;
 
-  background: #ffffff;
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
 }
+
+/* ================================
+   CABEÇALHO
+================================ */
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
 
   margin-bottom: 24px;
 }
 
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+/* Botão X sempre visível no modal */
+
+#production-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  background: var(--surface-soft);
+  border: none;
+  border-radius: var(--radius-md);
+
+  color: var(--text-secondary);
+}
+
+#production-modal-close:hover {
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+}
+
+/* ================================
+   FORMULÁRIO
+================================ */
+
 #production-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  min-width: 0;
 }
+
+.form-group label {
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+/* ================================
+   CAMPOS
+================================ */
 
 .form-group input,
 .form-group textarea {
   width: 100%;
+  min-width: 0;
 
   padding: 10px 12px;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
 
   font: inherit;
+  color: var(--text-primary);
+}
+
+.form-group input {
+  min-height: 42px;
 }
 
 .form-group textarea {
@@ -65,29 +136,149 @@
   resize: vertical;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-
-  margin-top: 8px;
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 1px;
 }
 
-/* MENSAGEM DE ERRO */
+/* ================================
+   ITENS DA ENCOMENDA
+================================ */
+
+#production-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Cada linha contém nome, quantidade e remoção */
+
+.production-item-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(100px, 130px)
+    auto;
+
+  align-items: end;
+  gap: 12px;
+
+  padding: 12px;
+
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* Botão de remoção */
+
+.remove-item-button {
+  min-height: 42px;
+}
+
+.remove-item-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Botão para adicionar novos itens */
+
+#add-item-button {
+  align-self: flex-start;
+  margin-top: 12px;
+}
+
+/* ================================
+   MENSAGENS DE ERRO
+================================ */
 
 .form-error {
   padding: 12px 16px;
 
-  background-color: #fef2f2;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+
   color: #b91c1c;
 
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
 .form-error[hidden] {
   display: none;
+}
+
+/* ================================
+   BOTÕES DO FORMULÁRIO
+================================ */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-actions .btn {
+  justify-content: center;
+  min-height: 40px;
+}
+
+/* ================================
+   RESPONSIVIDADE
+================================ */
+
+@media (max-width: 520px) {
+
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-content {
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+
+    padding: 16px;
+  }
+
+  .modal-header {
+    margin-bottom: 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  #production-form {
+    gap: 16px;
+  }
+
+  /* Itens empilhados em telas pequenas */
+
+  .production-item-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .remove-item-button {
+    justify-self: end;
+  }
+
+  #add-item-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
 }
