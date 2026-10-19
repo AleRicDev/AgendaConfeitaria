@@ -8,11 +8,13 @@
 
   <title>Doce Gestão</title>
 
+  <!-- Ícones -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
   >
 
+  <!-- Estilos -->
   <link rel="stylesheet" href="./src/css/index.css">
 </head>
 
@@ -23,6 +25,7 @@
     <aside class="sidebar">
 
       <div class="sidebar-brand">
+
         <div class="sidebar-brand-icon">
           <i class="ti ti-cake"></i>
         </div>
@@ -31,9 +34,13 @@
           <p class="sidebar-title">Doce Gestão</p>
           <span class="sidebar-version">v1.0</span>
         </div>
+
       </div>
 
-      <nav class="sidebar-nav" aria-label="Navegação principal">
+      <nav
+        class="sidebar-nav"
+        aria-label="Navegação principal"
+      >
         <p class="nav-label">Principal</p>
 
         <a href="#agenda" class="nav-item is-active">
@@ -43,14 +50,18 @@
       </nav>
 
       <div class="sidebar-footer">
+
         <div class="user">
+
           <div class="user-avatar">DG</div>
 
           <div class="user-info">
             <p class="user-name">Doce Gestão</p>
             <p class="user-role">Agenda de encomendas</p>
           </div>
+
         </div>
+
       </div>
 
     </aside>
@@ -58,16 +69,25 @@
     <!-- ÁREA PRINCIPAL -->
     <div class="main-layout">
 
+      <!-- TOPBAR -->
       <header class="topbar">
 
         <div class="topbar-left">
+
           <div class="topbar-text">
-            <p class="topbar-greeting">Agenda diária</p>
-            <p class="topbar-date">Encomendas e entregas</p>
+            <p class="topbar-greeting">
+              Agenda diária
+            </p>
+
+            <p class="topbar-date">
+              Encomendas e entregas
+            </p>
           </div>
+
         </div>
 
         <div class="topbar-actions">
+
           <button
             type="button"
             class="btn btn-primary"
@@ -76,16 +96,19 @@
             <i class="ti ti-plus"></i>
             Nova encomenda
           </button>
+
         </div>
 
       </header>
 
-      <!-- AGENDA -->
+      <!-- CONTEÚDO PRINCIPAL -->
       <main class="content" id="agenda">
 
         <div class="agenda-page">
 
+          <!-- APRESENTAÇÃO -->
           <section class="agenda-heading">
+
             <span class="agenda-eyebrow">
               Organização de encomendas
             </span>
@@ -93,8 +116,10 @@
             <h1>Agenda de produção</h1>
 
             <p>
-              Acompanhe suas entregas por data e período do dia.
+              Acompanhe suas entregas por data
+              e período do dia.
             </p>
+
           </section>
 
           <!-- NAVEGAÇÃO ENTRE DATAS -->
@@ -146,7 +171,50 @@
 
           </section>
 
-          <!-- CARREGAMENTO OU ERRO -->
+          <!-- PROGRESSO DIÁRIO -->
+          <section
+            class="card daily-progress"
+            id="daily-progress"
+            aria-labelledby="daily-progress-title"
+            hidden
+          >
+
+            <div class="daily-progress-header">
+
+              <div>
+                <h2 id="daily-progress-title">
+                  Progresso do dia
+                </h2>
+
+                <p id="daily-progress-summary">
+                  0 de 0 encomendas concluídas
+                </p>
+              </div>
+
+              <strong id="daily-progress-percentage">
+                0%
+              </strong>
+
+            </div>
+
+            <div
+              class="daily-progress-track"
+              id="daily-progress-track"
+              role="progressbar"
+              aria-label="Progresso das encomendas do dia"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <div
+                class="daily-progress-fill"
+                id="daily-progress-fill"
+              ></div>
+            </div>
+
+          </section>
+
+          <!-- CARREGAMENTO E ERROS -->
           <p
             id="agenda-feedback"
             class="agenda-feedback"
@@ -165,12 +233,14 @@
             >
 
               <header class="agenda-period-header">
+
                 <h2 id="morning-title">
                   <i class="ti ti-sunrise"></i>
                   Manhã
                 </h2>
 
                 <span>05:00 às 11:59</span>
+
               </header>
 
               <div
@@ -187,12 +257,14 @@
             >
 
               <header class="agenda-period-header">
+
                 <h2 id="afternoon-title">
                   <i class="ti ti-sun"></i>
                   Tarde
                 </h2>
 
                 <span>12:00 às 17:59</span>
+
               </header>
 
               <div
@@ -209,12 +281,14 @@
             >
 
               <header class="agenda-period-header">
+
                 <h2 id="night-title">
                   <i class="ti ti-moon"></i>
                   Noite
                 </h2>
 
                 <span>18:00 às 04:59</span>
+
               </header>
 
               <div
@@ -231,6 +305,7 @@
       </main>
 
     </div>
+
   </div>
 
   <!-- MODAL CENTRALIZADO -->
@@ -263,12 +338,15 @@
 
       </header>
 
+      <!-- FORMULÁRIO -->
       <form id="production-form">
 
         <!-- CLIENTE -->
         <div class="form-group">
 
-          <label for="client">Cliente</label>
+          <label for="client">
+            Cliente
+          </label>
 
           <input
             type="text"
@@ -279,12 +357,12 @@
 
         </div>
 
-        <!-- ITENS -->
+        <!-- ITENS DA ENCOMENDA -->
         <div class="form-group">
 
           <label>Itens da encomenda</label>
 
-          <!-- Linhas criadas pelo modal.ts -->
+          <!-- Linhas geradas pelo modal.ts -->
           <div id="production-items"></div>
 
           <button
@@ -298,7 +376,7 @@
 
         </div>
 
-        <!-- DATA -->
+        <!-- DATA DE ENTREGA -->
         <div class="form-group">
 
           <label for="delivery-date">
@@ -330,7 +408,7 @@
 
         </div>
 
-        <!-- VALOR -->
+        <!-- VALOR FINAL -->
         <div class="form-group">
 
           <label for="total-value">
@@ -351,7 +429,9 @@
         <!-- OBSERVAÇÕES -->
         <div class="form-group">
 
-          <label for="notes">Observações</label>
+          <label for="notes">
+            Observações
+          </label>
 
           <textarea
             id="notes"
@@ -360,7 +440,7 @@
 
         </div>
 
-        <!-- ERRO -->
+        <!-- MENSAGEM DE ERRO -->
         <p
           id="production-form-error"
           class="form-error"
@@ -370,7 +450,7 @@
           Não foi possível salvar a encomenda.
         </p>
 
-        <!-- BOTÕES -->
+        <!-- AÇÕES DO FORMULÁRIO -->
         <div class="modal-actions">
 
           <button
@@ -397,3 +477,4 @@
 
 </body>
 </html>
+
