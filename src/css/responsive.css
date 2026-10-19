@@ -1,190 +1,102 @@
-/* ================================
-   RESPONSIVE
-   Breakpoints:
-   - Mobile:  < 640px
-   - Tablet:  640px – 1024px
-   - Desktop: > 1024px
-================================ */
 
 /* ================================
-   TABLET (até 1024px)
+   TABLET
 ================================ */
 
 @media (max-width: 1024px) {
 
-  /* Grid de 2 colunas vira 1 */
-  .grid {
-    grid-template-columns: 1fr;
+  .agenda-page {
+    gap: 20px;
   }
 
-  /* Stats em 3 colunas mantém */
-  .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* Sidebar mais estreita */
-  .sidebar {
-    width: 200px;
-    min-width: 200px;
+  .agenda-period {
+    padding: 18px;
   }
 
 }
 
 /* ================================
-   MOBILE (até 640px)
+   MOBILE
 ================================ */
 
 @media (max-width: 640px) {
 
-  /* Esconde a sidebar */
+  /* A sidebar fica oculta em telas pequenas */
   .sidebar {
     display: none;
   }
 
-  /* Mostra o botão hambúrguer */
-  .icon-button {
-    display: flex;
-  }
-
-  /* Esconde botões da topbar */
-  .topbar-actions {
-    display: none;
-  }
-
-  /* Ajusta padding da topbar */
   .topbar {
-    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 16px;
   }
 
-  /* Ajusta padding do conteúdo */
-  .content {
-    padding: var(--space-4);
-    padding-bottom: calc(var(--space-4) + 64px);
-  }
-
-  /* Stats em 3 colunas compactas */
-  .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-3);
-  }
-
-  .stat-card {
-    padding: var(--space-3);
-  }
-
-  .stat-value {
-    font-size: var(--fs-xl);
-  }
-
-  /* Grid vira 1 coluna */
-  .grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-
-  /* Mostra a bottom nav */
-  .mobile-nav {
+  .topbar-actions {
     display: flex;
+    width: 100%;
   }
 
-  /* Main precisa de espaço para a bottom nav */
-  .main-layout {
-    padding-bottom: 64px;
+  .topbar-actions .btn {
+    justify-content: center;
+    width: 100%;
   }
 
-}
+  .content {
+    padding: 16px;
+  }
 
-/* ================================
-   MOBILE NAV (bottom navigation)
-================================ */
+  /* Cabeçalho */
 
-.mobile-nav {
-  display: none;
+  .agenda-page {
+    gap: 16px;
+  }
 
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  .agenda-heading h1 {
+    font-size: 23px;
+  }
 
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  /* Navegação de datas */
 
-  padding: var(--space-2) 0 var(--space-4);
-}
+  .agenda-toolbar {
+    gap: 8px;
+    padding: 12px;
+  }
 
-.mobile-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  .agenda-date-control {
+    flex-basis: 100%;
+    order: -1;
+  }
 
-  flex: 1;
+  .agenda-date-control input {
+    max-width: none;
+  }
 
-  background: none;
-  border: none;
+  /* Períodos */
 
-  color: var(--text-muted);
-  font-size: var(--fs-xs);
+  .agenda-period {
+    padding: 16px;
+  }
 
-  padding: var(--space-2) 0;
+  .agenda-period-header h2 {
+    font-size: 16px;
+  }
 
-  transition: var(--transition-fast);
-}
+  /* Cartões */
 
-.mobile-nav-item i {
-  font-size: 1.35rem;
-}
+  .agenda-period .list-item {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-.mobile-nav-item:hover {
-  color: var(--brand-primary);
-}
+  .agenda-period .item-content {
+    flex-basis: calc(100% - 50px);
+  }
 
-.mobile-nav-item.is-active {
-  color: var(--brand-primary);
-}
+  .production-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 
-/* ================================
-   SIDEBAR MOBILE (drawer)
-================================ */
-
-.sidebar-overlay {
-  display: none;
-
-  position: fixed;
-  inset: 0;
-  z-index: 98;
-
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-
-  transition: opacity var(--transition-normal);
-}
-
-.sidebar-overlay.is-open {
-  display: block;
-}
-
-.sidebar-drawer {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  z-index: 99;
-
-  width: 260px;
-  height: 100%;
-
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-
-  display: flex;
-  flex-direction: column;
-
-  padding: var(--space-6) 0;
-
-  transition: left var(--transition-normal);
-}
-
-.sidebar-drawer.is-open {
-  left: 0;
 }

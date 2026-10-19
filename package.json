@@ -14,5 +14,8 @@
     "webpack": "^5.110.1",
     "webpack-cli": "^7.2.3",
     "webpack-dev-server": "^6.0.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.23"
   }
 }
