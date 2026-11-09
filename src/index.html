@@ -8,134 +8,59 @@
 
   <title>Doce Gestão</title>
 
+  <!-- Ícones Tabler -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
   >
-
-  <link rel="stylesheet" href="./src/css/index.css">
 </head>
 
 <body>
+
   <div class="app-shell">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <div class="sidebar-brand">
-
-        <div class="sidebar-brand-icon">
-          <i class="ti ti-cake"></i>
-        </div>
-
-        <div class="sidebar-brand-text">
-          <p class="sidebar-title">Doce Gestão</p>
-          <span class="sidebar-version">v1.0</span>
-        </div>
-
-      </div>
-
-      <nav
-        class="sidebar-nav"
-        aria-label="Navegação principal"
-      >
-        <p class="nav-label">Principal</p>
-
-        <a href="#agenda" class="nav-item is-active">
-          <i class="ti ti-calendar"></i>
-          <span>Agenda</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-footer">
-
-        <div class="user">
-
-          <div class="user-avatar">DG</div>
-
-          <div class="user-info">
-            <p class="user-name">Doce Gestão</p>
-            <p class="user-role">Agenda de encomendas</p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-    <!-- ÁREA PRINCIPAL -->
     <div class="main-layout">
 
-      <!-- TOPBAR -->
+      <!-- CABEÇALHO PRINCIPAL -->
       <header class="topbar">
+        <div class="topbar-inner">
 
-        <div class="topbar-left">
-
-          <div class="topbar-text">
-            <p class="topbar-greeting">
-              Agenda diária
-            </p>
-
-            <p class="topbar-date">
-              Encomendas e entregas
-            </p>
-          </div>
-
-        </div>
-
-        <div class="topbar-actions">
-
-          <button
-            type="button"
-            class="btn btn-primary"
-            id="new-production-button"
+          <!-- MARCA -->
+          <a
+            href="#agenda"
+            class="topbar-brand"
+            aria-label="Doce Gestão - Ir para agenda"
           >
-            <i class="ti ti-plus"></i>
-            Nova encomenda
-          </button>
-
-        </div>
-
-      </header>
-
-      <!-- AGENDA -->
-      <main class="content" id="agenda">
-
-        <div class="agenda-page">
-
-          <!-- APRESENTAÇÃO -->
-          <section class="agenda-heading">
-
-            <span class="agenda-eyebrow">
-              Organização de encomendas
+            <span class="topbar-brand-icon" aria-hidden="true">
+              <i class="ti ti-cake"></i>
             </span>
 
-            <h1>Agenda de produção</h1>
+            <span class="topbar-brand-text">
+              <strong class="topbar-brand-name">
+                Doce Gestão
+              </strong>
 
-            <p>
-              Acompanhe suas entregas por data
-              e período do dia.
-            </p>
+              <span class="topbar-brand-subtitle">
+                Agenda de encomendas
+              </span>
+            </span>
+          </a>
 
-          </section>
-
-          <!-- NAVEGAÇÃO ENTRE DATAS -->
-          <section
-            class="agenda-toolbar"
+          <!-- NAVEGAÇÃO DE DATAS -->
+          <nav
+            class="date-navigation"
             aria-label="Navegação entre datas"
           >
 
             <button
               type="button"
-              class="btn btn-outline agenda-nav-button"
+              class="btn btn-outline date-nav-button"
               id="previous-day-button"
               aria-label="Dia anterior"
             >
-              <i class="ti ti-chevron-left"></i>
+              <i class="ti ti-chevron-left" aria-hidden="true"></i>
             </button>
 
-            <div class="agenda-date-control">
+            <div class="date-navigation-control">
 
               <label for="agenda-date">
                 Data selecionada
@@ -152,149 +77,224 @@
 
             <button
               type="button"
-              class="btn btn-outline agenda-nav-button"
+              class="btn btn-outline date-nav-button"
               id="next-day-button"
               aria-label="Próximo dia"
             >
-              <i class="ti ti-chevron-right"></i>
+              <i class="ti ti-chevron-right" aria-hidden="true"></i>
             </button>
 
             <button
               type="button"
-              class="btn btn-outline"
+              class="btn btn-outline date-today-button"
               id="today-button"
             >
               Hoje
             </button>
 
-          </section>
+          </nav>
 
-          <!-- PROGRESSO DIÁRIO -->
-          <section
-            class="card daily-progress"
-            id="daily-progress"
-            aria-labelledby="daily-progress-title"
-            hidden
-          >
+          <!-- NOVA ENCOMENDA -->
+          <div class="topbar-actions">
 
-            <div class="daily-progress-header">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="new-production-button"
+            >
+              <i class="ti ti-plus" aria-hidden="true"></i>
+              Nova encomenda
+            </button>
 
-              <div>
-                <h2 id="daily-progress-title">
-                  Progresso do dia
-                </h2>
+          </div>
 
-                <p id="daily-progress-summary">
-                  0 de 0 encomendas concluídas
+        </div>
+      </header>
+
+      <!-- CONTEÚDO PRINCIPAL -->
+      <main class="content" id="agenda">
+
+        <div class="agenda-page">
+
+          <!-- GRID DESKTOP -->
+          <div class="agenda-grid">
+
+            <!-- COLUNA PRINCIPAL: AGENDA -->
+            <section
+              class="agenda-main"
+              aria-labelledby="agenda-title"
+            >
+
+              <div class="agenda-heading">
+
+                <h1 id="agenda-title">
+                  Agenda do dia
+                </h1>
+
+                <p>
+                  Encomendas organizadas por horário de entrega.
                 </p>
+
               </div>
 
-              <strong id="daily-progress-percentage">
-                0%
-              </strong>
+              <!-- CARREGAMENTO E ERROS -->
+              <p
+                id="agenda-feedback"
+                class="agenda-feedback"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></p>
 
-            </div>
+              <!-- PERÍODOS -->
+              <div class="agenda-periods">
 
-            <div
-              class="daily-progress-track"
-              id="daily-progress-track"
-              role="progressbar"
-              aria-label="Progresso das encomendas do dia"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-            >
-              <div
-                class="daily-progress-fill"
-                id="daily-progress-fill"
-              ></div>
-            </div>
+                <!-- MANHÃ -->
+                <section
+                  class="card agenda-period"
+                  aria-labelledby="morning-title"
+                >
 
-          </section>
+                  <header class="agenda-period-header">
 
-          <!-- CARREGAMENTO E ERROS -->
-          <p
-            id="agenda-feedback"
-            class="agenda-feedback"
-            role="status"
-            aria-live="polite"
-            hidden
-          ></p>
+                    <h2 id="morning-title">
+                      <i
+                        class="ti ti-sunrise"
+                        aria-hidden="true"
+                      ></i>
+                      Manhã
+                    </h2>
 
-          <!-- PERÍODOS DO DIA -->
-          <div class="agenda-periods">
+                    <span>
+                      05:00 às 11:59
+                    </span>
 
-            <!-- MANHÃ -->
-            <section
-              class="card agenda-period"
-              aria-labelledby="morning-title"
-            >
+                  </header>
 
-              <header class="agenda-period-header">
+                  <!-- Cartões criados pelo show.ts -->
+                  <div
+                    class="list"
+                    id="morning-list"
+                  ></div>
 
-                <h2 id="morning-title">
-                  <i class="ti ti-sunrise"></i>
-                  Manhã
-                </h2>
+                </section>
 
-                <span>05:00 às 11:59</span>
+                <!-- TARDE -->
+                <section
+                  class="card agenda-period"
+                  aria-labelledby="afternoon-title"
+                >
 
-              </header>
+                  <header class="agenda-period-header">
 
-              <div
-                id="morning-list"
-                class="list"
-              ></div>
+                    <h2 id="afternoon-title">
+                      <i
+                        class="ti ti-sun"
+                        aria-hidden="true"
+                      ></i>
+                      Tarde
+                    </h2>
 
-            </section>
+                    <span>
+                      12:00 às 17:59
+                    </span>
 
-            <!-- TARDE -->
-            <section
-              class="card agenda-period"
-              aria-labelledby="afternoon-title"
-            >
+                  </header>
 
-              <header class="agenda-period-header">
+                  <div
+                    class="list"
+                    id="afternoon-list"
+                  ></div>
 
-                <h2 id="afternoon-title">
-                  <i class="ti ti-sun"></i>
-                  Tarde
-                </h2>
+                </section>
 
-                <span>12:00 às 17:59</span>
+                <!-- NOITE -->
+                <section
+                  class="card agenda-period"
+                  aria-labelledby="night-title"
+                >
 
-              </header>
+                  <header class="agenda-period-header">
 
-              <div
-                id="afternoon-list"
-                class="list"
-              ></div>
+                    <h2 id="night-title">
+                      <i
+                        class="ti ti-moon"
+                        aria-hidden="true"
+                      ></i>
+                      Noite
+                    </h2>
 
-            </section>
+                    <span>
+                      18:00 às 04:59
+                    </span>
 
-            <!-- NOITE -->
-            <section
-              class="card agenda-period"
-              aria-labelledby="night-title"
-            >
+                  </header>
 
-              <header class="agenda-period-header">
+                  <div
+                    class="list"
+                    id="night-list"
+                  ></div>
 
-                <h2 id="night-title">
-                  <i class="ti ti-moon"></i>
-                  Noite
-                </h2>
+                </section>
 
-                <span>18:00 às 04:59</span>
-
-              </header>
-
-              <div
-                id="night-list"
-                class="list"
-              ></div>
+              </div>
 
             </section>
+
+            <!-- COLUNA SECUNDÁRIA: INDICADORES -->
+            <aside
+              class="agenda-aside"
+              aria-label="Indicadores da agenda"
+            >
+
+              <!-- PROGRESSO DIÁRIO -->
+              <section
+                class="card daily-progress"
+                id="daily-progress"
+                aria-labelledby="daily-progress-title"
+                hidden
+              >
+
+                <div class="daily-progress-header">
+
+                  <div>
+
+                    <h2 id="daily-progress-title">
+                      Progresso do dia
+                    </h2>
+
+                    <p id="daily-progress-summary">
+                      0 de 0 encomendas concluídas
+                    </p>
+
+                  </div>
+
+                  <strong id="daily-progress-percentage">
+                    0%
+                  </strong>
+
+                </div>
+
+                <div
+                  class="daily-progress-track"
+                  id="daily-progress-track"
+                  role="progressbar"
+                  aria-label="Progresso das encomendas do dia"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                >
+
+                  <div
+                    class="daily-progress-fill"
+                    id="daily-progress-fill"
+                  ></div>
+
+                </div>
+
+              </section>
+
+            </aside>
 
           </div>
 
@@ -303,7 +303,6 @@
       </main>
 
     </div>
-
   </div>
 
   <!-- MODAL CENTRALIZADO -->
@@ -319,6 +318,7 @@
       aria-labelledby="production-modal-title"
     >
 
+      <!-- CABEÇALHO DO MODAL -->
       <header class="modal-header">
 
         <h2 id="production-modal-title">
@@ -331,11 +331,12 @@
           id="production-modal-close"
           aria-label="Fechar modal"
         >
-          <i class="ti ti-x"></i>
+          <i class="ti ti-x" aria-hidden="true"></i>
         </button>
 
       </header>
 
+      <!-- FORMULÁRIO DE CADASTRO E EDIÇÃO -->
       <form id="production-form">
 
         <!-- CLIENTE -->
@@ -357,9 +358,14 @@
         <!-- ITENS DA ENCOMENDA -->
         <div class="form-group">
 
-          <label>Itens da encomenda</label>
+          <label>
+            Itens da encomenda
+          </label>
 
-          <!-- Linhas geradas pelo modal.ts -->
+          <!--
+            As linhas de produtos são criadas
+            dinamicamente pelo modal.ts.
+          -->
           <div id="production-items"></div>
 
           <button
@@ -367,7 +373,7 @@
             id="add-item-button"
             class="btn btn-outline"
           >
-            <i class="ti ti-plus"></i>
+            <i class="ti ti-plus" aria-hidden="true"></i>
             Adicionar produto
           </button>
 
@@ -389,7 +395,7 @@
 
         </div>
 
-        <!-- HORÁRIO -->
+        <!-- HORÁRIO DE ENTREGA -->
         <div class="form-group">
 
           <label for="delivery-time">
@@ -449,7 +455,7 @@
           Não foi possível salvar a encomenda.
         </p>
 
-        <!-- AÇÕES DO FORMULÁRIO -->
+        <!-- BOTÕES DO FORMULÁRIO -->
         <div class="modal-actions">
 
           <button
@@ -472,6 +478,7 @@
       </form>
 
     </div>
+
   </div>
 
 </body>

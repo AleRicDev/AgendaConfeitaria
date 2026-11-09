@@ -1,102 +1,321 @@
 
 /* ================================
-   TABLET
+   DOCE GESTÃO - RESPONSIVIDADE
 ================================ */
 
-@media (max-width: 1024px) {
+/*
+  Layout base:
+  - Desktop: agenda e progresso lado a lado
+  - Tablet: conteúdo em uma coluna
+  - Mobile: navegação e ações empilhadas
 
-  .agenda-page {
-    gap: 20px;
+  As regras principais de grid ficam em
+  layout.css, topbar.css e cards.css.
+*/
+
+/* ================================
+   TABLET - ATÉ 1023px
+================================ */
+
+@media (max-width: 1023px) {
+
+  /*
+    Evita que um cabeçalho de duas
+    linhas ocupe espaço fixo durante
+    a navegação pela agenda.
+  */
+
+  .topbar {
+    position: relative;
+    top: auto;
   }
 
-  .agenda-period {
-    padding: 18px;
+  .agenda-main,
+  .agenda-aside {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .agenda-heading {
+    min-width: 0;
+  }
+
+  .agenda-periods {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .daily-progress {
+    max-width: none;
   }
 
 }
 
 /* ================================
-   MOBILE
+   MOBILE - ATÉ 640px
 ================================ */
 
 @media (max-width: 640px) {
 
-  /* A sidebar fica oculta em telas pequenas */
-  .sidebar {
-    display: none;
-  }
+  /* CABEÇALHO */
 
   .topbar {
-    flex-wrap: wrap;
-    gap: 12px;
-
-    padding: 16px;
+    position: relative;
   }
 
+  /*
+    O topbar.css já reorganiza o
+    cabeçalho em três linhas.
+
+    Aqui restauramos as margens
+    laterais da versão mobile.
+  */
+
+  .topbar-inner {
+    width: 100%;
+    padding: 16px;
+
+    gap: 14px;
+  }
+
+  .topbar-brand {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .topbar-brand-text {
+    min-width: 0;
+  }
+
+  .topbar-brand-name,
+  .topbar-brand-subtitle {
+    overflow-wrap: anywhere;
+  }
+
+  /* NAVEGAÇÃO DA DATA */
+
+  .date-navigation {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .date-navigation-control {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .date-navigation-control input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    font-size: 16px;
+  }
+
+  #agenda-date-label {
+    overflow-wrap: anywhere;
+  }
+
+  .date-nav-button {
+    flex-shrink: 0;
+
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .date-today-button {
+    min-height: 44px;
+  }
+
+  /* NOVA ENCOMENDA */
+
   .topbar-actions {
-    display: flex;
     width: 100%;
   }
 
   .topbar-actions .btn {
-    justify-content: center;
     width: 100%;
+    min-height: 44px;
+
+    justify-content: center;
   }
+
+  /* CONTEÚDO */
 
   .content {
-    padding: 16px;
+    width: 100%;
+    min-width: 0;
+
+    padding: 16px 16px 40px;
   }
 
-  /* Cabeçalho */
-
-  .agenda-page {
-    gap: 16px;
+  .agenda-page,
+  .agenda-grid {
+    width: 100%;
+    min-width: 0;
   }
 
   .agenda-heading h1 {
-    font-size: 23px;
+    line-height: 1.3;
   }
 
-  /* Navegação de datas */
-
-  .agenda-toolbar {
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .agenda-date-control {
-    flex-basis: 100%;
-    order: -1;
-  }
-
-  .agenda-date-control input {
-    max-width: none;
-  }
-
-  /* Períodos */
+  /* PERÍODOS */
 
   .agenda-period {
-    padding: 16px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .agenda-period-header {
+    align-items: center;
+    gap: 8px;
   }
 
   .agenda-period-header h2 {
-    font-size: 16px;
+    min-width: 0;
   }
 
-  /* Cartões */
-
-  .agenda-period .list-item {
-    flex-wrap: wrap;
-    gap: 10px;
+  .agenda-period-header > span {
+    overflow-wrap: anywhere;
   }
 
-  .agenda-period .item-content {
-    flex-basis: calc(100% - 50px);
+  /* CARTÕES */
+
+  .production-card,
+  .production-card-header,
+  .production-card-content,
+  .production-card-footer {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .production-client {
+    overflow-wrap: anywhere;
+  }
+
+  .production-items-list,
+  .production-item {
+    min-width: 0;
+  }
+
+  .production-item span:first-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .production-item span:last-child {
+    white-space: nowrap;
+  }
+
+  .production-status-select {
+    max-width: 100%;
   }
 
   .production-actions {
     width: 100%;
-    justify-content: flex-end;
+  }
+
+  .production-actions .btn {
+    min-width: 0;
+  }
+
+  /* PROGRESSO DIÁRIO */
+
+  .agenda-aside {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .daily-progress {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .daily-progress-header {
+    min-width: 0;
+  }
+
+  .daily-progress-header > div {
+    min-width: 0;
+  }
+
+}
+
+/* ================================
+   MOBILE ESTREITO - ATÉ 360px
+================================ */
+
+@media (max-width: 360px) {
+
+  .topbar-inner {
+    padding: 12px;
+  }
+
+  .topbar-brand-name {
+    font-size: 20px;
+  }
+
+  .topbar-brand-subtitle {
+    font-size: 11px;
+  }
+
+  .content {
+    padding: 12px 12px 32px;
+  }
+
+  .agenda-heading h1 {
+    font-size: 22px;
+  }
+
+  .agenda-period-header {
+    align-items: flex-start;
+  }
+
+  .agenda-period-header > span {
+    font-size: 12px;
+  }
+
+  .production-card-header {
+    gap: 8px;
+  }
+
+  .production-actions {
+    gap: 8px;
+  }
+
+  .production-actions .btn {
+    padding: 10px;
+  }
+
+  .daily-progress {
+    padding: 16px;
+  }
+
+}
+
+/* ================================
+   PROTEÇÃO CONTRA OVERFLOW
+================================ */
+
+.app-shell,
+.main-layout,
+.content,
+.agenda-grid,
+.agenda-main,
+.agenda-aside {
+  min-width: 0;
+}
+
+/* ================================
+   MOVIMENTO REDUZIDO
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .btn,
+  .production-card {
+    transition: none;
   }
 
 }

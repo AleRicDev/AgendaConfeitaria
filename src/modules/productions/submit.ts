@@ -7,36 +7,67 @@ import type {
   ProductionItem
 } from "../../models/production"
 
-import { createProduction } from "../../services/production-create"
-import { updateProduction } from "../../services/production-update"
+import {
+  createProduction
+} from "../../services/production-create"
 
-import { closeProductionModal } from "./modal"
-import { loadProductions } from "./load"
+import {
+  updateProduction
+} from "../../services/production-update"
 
-// Validação de datas
+import {
+  closeProductionModal
+} from "./modal"
+
+import {
+  loadProductions,
+  showAgendaFeedback
+} from "./load"
+
+// ===================================
+// CONFIGURAÇÃO DE DATA
+// ===================================
+
 dayjs.extend(customParseFormat)
 
-// Elementos do formulário
+// ===================================
+// ELEMENTOS DO FORMULÁRIO
+// ===================================
+
 const productionForm =
-  document.querySelector<HTMLFormElement>("#production-form")
+  document.querySelector<HTMLFormElement>(
+    "#production-form"
+  )
 
 const clientInput =
-  document.querySelector<HTMLInputElement>("#client")
+  document.querySelector<HTMLInputElement>(
+    "#client"
+  )
 
 const deliveryDateInput =
-  document.querySelector<HTMLInputElement>("#delivery-date")
+  document.querySelector<HTMLInputElement>(
+    "#delivery-date"
+  )
 
 const deliveryTimeInput =
-  document.querySelector<HTMLInputElement>("#delivery-time")
+  document.querySelector<HTMLInputElement>(
+    "#delivery-time"
+  )
 
 const totalValueInput =
-  document.querySelector<HTMLInputElement>("#total-value")
+  document.querySelector<HTMLInputElement>(
+    "#total-value"
+  )
 
 const notesInput =
-  document.querySelector<HTMLTextAreaElement>("#notes")
+  document.querySelector<HTMLTextAreaElement>(
+    "#notes"
+  )
 
 const itemsContainer =
-  document.querySelector<HTMLDivElement>("#production-items")
+  document.querySelector<HTMLDivElement>(
+    "#production-items"
+  )
 
 const errorMessage =
   document.querySelector<HTMLParagraphElement>(
@@ -48,12 +79,16 @@ const submitButton =
     'button[type="submit"]'
   )
 
+// ===================================
+// CONTROLE DE SALVAMENTO
+// ===================================
+
 let isSaving = false
 
-// Guarda o último valor monetário válido
+// Último valor monetário válido.
 let lastValidMoneyValue = "0,00"
 
-// Usamos nossas próprias mensagens de validação
+// Utilizamos mensagens de validação próprias.
 if (productionForm) {
   productionForm.noValidate = true
 }
@@ -62,7 +97,6 @@ if (productionForm) {
 // FORMATAÇÃO MONETÁRIA
 // ===================================
 
-// Formata um número no padrão brasileiro
 function formatMoney(value: number): string {
   return value.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
@@ -70,12 +104,10 @@ function formatMoney(value: number): string {
   })
 }
 
-// Converte centavos em texto formatado
 function formatCents(cents: number): string {
   return formatMoney(cents / 100)
 }
 
-// Converte o texto brasileiro para número
 function parseMoney(value: string): number | null {
   const text = value.trim()
 
@@ -86,9 +118,7 @@ function parseMoney(value: string): number | null {
     return null
   }
 
-  // Exemplo: "1.234,56" -> "123456"
   const digits = text.replace(/\D/g, "")
-
   const cents = Number(digits)
 
   if (!Number.isSafeInteger(cents)) {
@@ -99,51 +129,65 @@ function parseMoney(value: string): number | null {
 }
 
 // ===================================
-// MÁSCARA MONETÁRIA DINÂMICA
+// MÁSCARA MONETÁRIA
 // ===================================
 
-// Seleciona o conteúdo ao entrar no campo
-totalValueInput?.addEventListener("focus", () => {
-  lastValidMoneyValue = totalValueInput.value
+totalValueInput?.addEventListener(
+  "focus",
+  () => {
 
-  totalValueInput.select()
-})
+    lastValidMoneyValue =
+      totalValueInput.value
 
-// Atualiza o valor a cada digitação
-totalValueInput?.addEventListener("input", () => {
-  // Remove tudo que não for um dígito
-  const digits = totalValueInput.value.replace(/\D/g, "")
-
-  // Os dígitos representam centavos
-  const cents = Number(digits || "0")
-
-  // Evita números fora do limite seguro
-  if (!Number.isSafeInteger(cents)) {
-    totalValueInput.value = lastValidMoneyValue
-    return
+    totalValueInput.select()
   }
+)
 
-  // Atualiza a apresentação monetária
-  const formattedValue = formatCents(cents)
+totalValueInput?.addEventListener(
+  "input",
+  () => {
 
-  totalValueInput.value = formattedValue
-  lastValidMoneyValue = formattedValue
+    const digits =
+      totalValueInput.value.replace(/\D/g, "")
 
-  // Mantém o cursor ao final do campo
-  const cursorPosition = formattedValue.length
+    const cents = Number(digits || "0")
 
-  totalValueInput.setSelectionRange(
-    cursorPosition,
-    cursorPosition
-  )
-})
+    if (!Number.isSafeInteger(cents)) {
+
+      totalValueInput.value =
+        lastValidMoneyValue
+
+      return
+    }
+
+    const formattedValue =
+      formatCents(cents)
+
+    totalValueInput.value =
+      formattedValue
+
+    lastValidMoneyValue =
+      formattedValue
+
+    const cursorPosition =
+      formattedValue.length
+
+    totalValueInput.setSelectionRange(
+      cursorPosition,
+      cursorPosition
+    )
+  }
+)
 
 // ===================================
-// TRATAMENTO DE ERROS
+// MENSAGENS DE VALIDAÇÃO
 // ===================================
 
 function showFormError(error: unknown): void {
-  console.error("Erro ao salvar encomenda:", error)
+  console.error(
+    "Erro de validação do formulário:",
+    error
+  )
 
   if (!errorMessage) {
     return
@@ -152,7 +196,42 @@ function showFormError(error: unknown): void {
   errorMessage.textContent =
     error instanceof Error
       ? error.message
-      : "Não foi possível salvar a encomenda."
+      : "Verifique os dados da encomenda."
+
+  errorMessage.hidden = false
+}
+
+// ===================================
+// RESULTADO NÃO CONFIRMADO PELA API
+// ===================================
+
+function showUnconfirmedSaveError(
+  error: unknown
+): void {
+
+  console.error(
+    "Não foi possível confirmar o salvamento:",
+    error
+  )
+
+  if (!errorMessage) {
+    return
+  }
+
+  /*
+    Uma falha de comunicação não prova,
+    por si só, que o servidor deixou
+    de gravar a encomenda.
+
+    Não afirmamos que ela foi salva
+    nem que deixou de ser salva.
+  */
+
+  errorMessage.textContent =
+    "Não foi possível confirmar o resultado " +
+    "do salvamento. Seus dados foram mantidos " +
+    "no formulário. Verifique a agenda antes " +
+    "de tentar novamente, para evitar duplicação."
 
   errorMessage.hidden = false
 }
@@ -174,12 +253,15 @@ function getProductionItems(): ProductionItem[] {
     )
 
   if (itemRows.length === 0) {
-    throw new Error("Adicione pelo menos um produto.")
+    throw new Error(
+      "Adicione pelo menos um produto."
+    )
   }
 
   const items: ProductionItem[] = []
 
   itemRows.forEach((row, index) => {
+
     const nameInput =
       row.querySelector<HTMLInputElement>(
         ".item-name-input"
@@ -197,7 +279,10 @@ function getProductionItems(): ProductionItem[] {
     }
 
     const name = nameInput.value.trim()
-    const quantityText = quantityInput.value.trim()
+
+    const quantityText =
+      quantityInput.value.trim()
+
     const quantity = Number(quantityText)
 
     if (name === "") {
@@ -212,7 +297,8 @@ function getProductionItems(): ProductionItem[] {
       quantity <= 0
     ) {
       throw new Error(
-        `Informe uma quantidade inteira positiva para o produto ${index + 1}.`
+        "Informe uma quantidade inteira positiva " +
+        `para o produto ${index + 1}.`
       )
     }
 
@@ -243,21 +329,28 @@ function getProductionData(): ProductionInput {
   }
 
   const client = clientInput.value.trim()
+
+  if (client === "") {
+    throw new Error(
+      "Informe o nome do cliente."
+    )
+  }
+
   const items = getProductionItems()
 
-  const deliveryDate = deliveryDateInput.value
-  const deliveryTime = deliveryTimeInput.value
+  const deliveryDate =
+    deliveryDateInput.value
 
-  const totalValue = parseMoney(totalValueInput.value)
+  const deliveryTime =
+    deliveryTimeInput.value
+
+  const totalValue =
+    parseMoney(totalValueInput.value)
 
   const notes = notesInput.value.trim()
 
-  // Valida o cliente
-  if (client === "") {
-    throw new Error("Informe o nome do cliente.")
-  }
+  // DATA DE ENTREGA
 
-  // Valida a data
   const validDate = dayjs(
     deliveryDate,
     "YYYY-MM-DD",
@@ -265,17 +358,24 @@ function getProductionData(): ProductionInput {
   ).isValid()
 
   if (!validDate) {
-    throw new Error("Informe uma data de entrega válida.")
+    throw new Error(
+      "Informe uma data de entrega válida."
+    )
   }
 
-  // Valida o horário
-  const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/
+  // HORÁRIO DE ENTREGA
+
+  const timePattern =
+    /^([01]\d|2[0-3]):[0-5]\d$/
 
   if (!timePattern.test(deliveryTime)) {
-    throw new Error("Informe um horário de entrega válido.")
+    throw new Error(
+      "Informe um horário de entrega válido."
+    )
   }
 
-  // Valida o valor monetário
+  // VALOR TOTAL
+
   if (totalValue === null) {
     throw new Error(
       "Informe um valor total válido."
@@ -296,88 +396,190 @@ function getProductionData(): ProductionInput {
 // ENVIO DO FORMULÁRIO
 // ===================================
 
-productionForm?.addEventListener("submit", async (event) => {
-  event.preventDefault()
+productionForm?.addEventListener(
+  "submit",
+  async (event) => {
 
-  if (isSaving) {
-    return
-  }
+    event.preventDefault()
 
-  if (errorMessage) {
-    errorMessage.hidden = true
-  }
+    // Impede dois envios simultâneos.
+    if (isSaving) {
+      return
+    }
 
-  try {
-    const productionData = getProductionData()
+    if (errorMessage) {
+      errorMessage.hidden = true
+    }
 
-    const mode = productionForm.dataset.mode
-    const editingId = productionForm.dataset.editingId
+    // ===================================
+    // VALIDAÇÃO ANTES DO ENVIO
+    // ===================================
 
-    if (mode !== "create" && mode !== "edit") {
-      throw new Error("Modo do formulário inválido.")
+    let productionData: ProductionInput
+
+    try {
+      productionData = getProductionData()
+    } catch (error) {
+      showFormError(error)
+      return
+    }
+
+    const mode =
+      productionForm.dataset.mode
+
+    const editingId = Number(
+      productionForm.dataset.editingId
+    )
+
+    if (
+      mode !== "create" &&
+      mode !== "edit"
+    ) {
+      showFormError(
+        new Error(
+          "Modo do formulário inválido."
+        )
+      )
+
+      return
     }
 
     if (
       mode === "edit" &&
       (
-        !editingId ||
-        !Number.isSafeInteger(Number(editingId)) ||
-        Number(editingId) <= 0
+        !Number.isSafeInteger(editingId) ||
+        editingId <= 0
       )
     ) {
-      throw new Error("ID de edição inválido.")
+      showFormError(
+        new Error(
+          "ID de edição inválido."
+        )
+      )
+
+      return
     }
 
-    // Bloqueia envios simultâneos
+    // ===================================
+    // PREPARAÇÃO DO SALVAMENTO
+    // ===================================
+
     isSaving = true
 
     const originalButtonText =
-      submitButton?.textContent ?? ""
+      submitButton?.textContent ??
+      "Salvar encomenda"
 
     if (submitButton) {
       submitButton.disabled = true
       submitButton.textContent = "Salvando..."
     }
 
+    // ===================================
+    // GRAVAÇÃO NA API
+    // ===================================
+
     try {
+
       if (mode === "edit") {
+
         await updateProduction(
-          Number(editingId),
+          editingId,
           productionData
         )
+
       } else {
-        await createProduction(productionData)
+
+        await createProduction(
+          productionData
+        )
+
       }
+
+    } catch (error) {
+
+      // O resultado não foi confirmado.
+      // Mantemos o modal e os dados.
+      showUnconfirmedSaveError(error)
+
+      return
+
     } finally {
+
       isSaving = false
 
       if (submitButton) {
         submitButton.disabled = false
-        submitButton.textContent = originalButtonText
+
+        submitButton.textContent =
+          originalButtonText
       }
     }
 
-  } catch (error) {
-    showFormError(error)
-    return
+    // ===================================
+    // GRAVAÇÃO CONFIRMADA
+    // ===================================
+
+    /*
+      Só chegamos aqui quando a chamada
+      de criação ou edição retornou
+      sem erro.
+
+      O registro foi confirmado pela
+      resposta da API.
+    */
+
+    const formattedDeliveryDate =
+      dayjs(productionData.deliveryDate)
+        .format("DD/MM/YYYY")
+
+    // Limpa o estado temporário.
+    productionForm.reset()
+
+    delete productionForm.dataset.editingId
+    productionForm.dataset.mode = "create"
+
+    // Fecha o modal antes de atualizar a tela.
+    closeProductionModal()
+
+    // ===================================
+    // ATUALIZAÇÃO DA AGENDA
+    // ===================================
+
+    try {
+
+      await loadProductions()
+
+      showAgendaFeedback(
+        "Encomenda salva. " +
+        `Data de entrega: ${formattedDeliveryDate}.`,
+        "success"
+      )
+
+    } catch (error) {
+
+      console.error(
+        "Encomenda salva, mas a agenda " +
+        "não foi atualizada:",
+        error
+      )
+
+      /*
+        A gravação já foi confirmada.
+
+        O botão de atualização fará
+        somente uma nova consulta GET,
+        sem repetir o cadastro.
+      */
+
+      showAgendaFeedback(
+        "Encomenda salva para " +
+        `${formattedDeliveryDate}, mas não foi ` +
+        "possível atualizar a agenda. " +
+        "Não cadastre novamente.",
+        "error",
+        true
+      )
+    }
   }
-
-  // Limpa os dados após salvar
-  productionForm.reset()
-
-  delete productionForm.dataset.editingId
-  productionForm.dataset.mode = "create"
-
-  closeProductionModal()
-
-  // Atualiza a agenda
-  try {
-    await loadProductions()
-  } catch (error) {
-    console.error(
-      "Encomenda salva, mas não foi possível atualizar a agenda:",
-      error
-    )
-  }
-})
-
+)

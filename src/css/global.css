@@ -1,5 +1,8 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
+
 /* ================================
-   RESET MODERNO
+   RESET GLOBAL
 ================================ */
 
 *,
@@ -11,80 +14,92 @@
 * {
   margin: 0;
   padding: 0;
-  font: inherit;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   font-family: var(--ff-sans);
   font-size: var(--fs-base);
   line-height: 1.5;
-  scroll-behavior: smooth;
   color: var(--text-primary);
+
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--bg);
+  min-height: 100vh;
+  background: var(--bg);
   overflow-x: hidden;
 }
 
 /* ================================
-   DESIGN SYSTEM (VARIÁVEIS)
+   DESIGN TOKENS
 ================================ */
 
 :root {
 
-  /* =======================
-     CORES DO PROJETO
-  ======================= */
+  /* FUNDOS E SUPERFÍCIES */
 
-  --bg: #f5f4f0;
-  --surface: #ffffff;
-  --surface-soft: #eeede8;
+  --bg: #FFF8F1;
+  --surface: #FFFFFF;
+  --surface-soft: #F8EFE6;
 
-  --text-primary: #1a1a1a;
-  --text-secondary: #5f5e5a;
-  --text-muted: #888780;
+  /* TEXTOS */
 
-  --border: rgba(0,0,0,0.1);
+  --text-primary: #4A251C;
+  --text-secondary: #765244;
+  --text-muted: #84685B;
+  --text-inverse: #FFFFFF;
 
-  /* Brand (Confeitaria - tons doces) */
-  --brand-primary: #3C3489;   /* roxo principal */
-  --brand-soft: #EEEDFE;      /* fundo roxo claro */
-  --brand-hover: #CECBF6;
+  /* BORDAS */
 
-  /* Status */
-  --success: #3B6D11;
-  --warning: #EF9F27;
-  --danger: #E24B4A;
+  --border: #E8D5C9;
+  --border-control: #9B796A;
 
-  /* Background extras */
-  --green-soft: #EAF3DE;
-  --pink-soft: #FBEAF0;
-  --yellow-soft: #FAEEDA;
+  /* IDENTIDADE DA MARCA */
 
-  /* =======================
-     TIPOGRAFIA
-  ======================= */
+  --brand-primary: #B83460;
+  --brand-hover: #9D284E;
+  --brand-pressed: #842041;
+  --brand-soft: #FCE8EE;
 
-  --ff-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* STATUS E FEEDBACK */
+
+  --success: #2D643F;
+  --warning: #805017;
+  --danger: #B32636;
+
+  --green-soft: #E7F2E9;
+  --pink-soft: #FCE8EE;
+  --yellow-soft: #FFF1D6;
+  --danger-soft: #FDEBED;
+
+  --disabled-bg: #EDE3DD;
+  --disabled-text: #8D7468;
+
+  /* FOCO */
+
+  --focus-ring: #9D284E;
+
+  /* TIPOGRAFIA */
+
+  --ff-sans: "Nunito", sans-serif;
 
   --fw-regular: 400;
   --fw-medium: 500;
+  --fw-semibold: 600;
   --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
 
   --fs-xs: 0.75rem;
-  --fs-sm: 0.85rem;
-  --fs-base: 0.95rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
   --fs-md: 1rem;
   --fs-lg: 1.25rem;
-  --fs-xl: 1.5rem;
+  --fs-xl: 1.75rem;
   --fs-2xl: 2rem;
 
-  /* =======================
-     ESPAÇAMENTOS
-  ======================= */
+  /* ESPAÇAMENTOS */
 
   --space-1: 4px;
   --space-2: 8px;
@@ -93,38 +108,58 @@ body {
   --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 
-  /* =======================
-     🔲 BORDAS
-  ======================= */
+  /* BORDAS ARREDONDADAS */
 
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 999px;
 
-  /* =======================
-     EFEITOS
-  ======================= */
+  /* SOMBRAS */
 
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
+  --shadow-card:
+    0 2px 8px rgba(74, 37, 28, 0.04);
+
+  --shadow-overlay:
+    0 12px 32px rgba(74, 37, 28, 0.14);
+
+  /* TRANSIÇÕES */
+
+  --transition-fast: 120ms ease;
+  --transition-normal: 180ms ease;
 }
 
 /* ================================
-   TIPOGRAFIA GLOBAL
+   TIPOGRAFIA
 ================================ */
 
-h1, h2, h3 {
-  line-height: 1.2;
-  font-weight: var(--fw-bold);
-  letter-spacing: -0.02em;
+h1,
+h2,
+h3 {
   color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: var(--fs-2xl); }
-h2 { font-size: var(--fs-xl); }
-h3 { font-size: var(--fs-lg); }
+h1 {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-extrabold);
+}
+
+h2 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-extrabold);
+}
+
+h3 {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+}
 
 p {
   color: var(--text-secondary);
@@ -135,9 +170,9 @@ p {
 ================================ */
 
 a {
-  text-decoration: none;
   color: inherit;
-  transition: var(--transition-fast);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
@@ -145,38 +180,77 @@ a:hover {
 }
 
 /* ================================
-   LISTAS
+   FORMULÁRIOS E BOTÕES
 ================================ */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input,
+textarea,
+select {
+  color: var(--text-primary);
+}
+
+/* ================================
+   ACESSIBILIDADE
+================================ */
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ================================
+   IMAGENS E LISTAS
+================================ */
+
+img {
+  display: block;
+  max-width: 100%;
+}
 
 ul[role="list"] {
   list-style: none;
 }
 
 /* ================================
-   IMAGENS
-================================ */
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ================================
-   BOTÕES BASE (opcional global)
-================================ */
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
-
-/* ================================
-   UTILITÁRIO (opcional futuro)
+   CONTAINER
 ================================ */
 
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 var(--space-6);
+}
+
+/* ================================
+   MOVIMENTO REDUZIDO
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

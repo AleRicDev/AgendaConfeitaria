@@ -4,65 +4,201 @@
 ================================ */
 
 .card {
+  min-width: 0;
+  padding: var(--space-4);
+
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: var(--space-4);
+
+  box-shadow: var(--shadow-card);
 }
 
 .list {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
 .list-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
-
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.list-item:last-child {
-  border-bottom: none;
+  gap: 12px;
 }
 
 /* ================================
-   CARTÕES DAS ENCOMENDAS
+   PÁGINA DA AGENDA
 ================================ */
 
-.production-card {
+.agenda-page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 
-  margin-top: 12px;
-  padding: 18px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.agenda-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.agenda-heading h1 {
+  font-size: 28px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.3;
+
+  color: var(--text-primary);
+}
+
+.agenda-heading p {
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: var(--text-secondary);
+}
+
+/* ================================
+   PERÍODOS DA AGENDA
+================================ */
+
+.agenda-periods {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  min-width: 0;
+}
+
+/* O próprio período não precisa de
+   um cartão branco ao seu redor. */
+
+.card.agenda-period {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* CABEÇALHO DO PERÍODO */
+
+.agenda-period-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  padding: 0 4px;
+}
+
+.agenda-period-header h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 20px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.4;
+
+  color: var(--text-primary);
+}
+
+.agenda-period-header h2 i {
+  font-size: 21px;
+  color: var(--brand-primary);
+}
+
+.agenda-period-header > span {
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+
+  color: var(--text-secondary);
+}
+
+/* PERÍODO VAZIO */
+
+.agenda-empty {
+  padding: 20px;
+  margin: 0;
+
+  background: var(--surface-soft);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ================================
+   CARTÃO DA ENCOMENDA
+================================ */
+
+.agenda-period .list-item.production-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 14px;
+
+  min-width: 0;
+  width: 100%;
+
+  margin: 0;
+  padding: 16px;
 
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-card);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
-.production-card:last-child {
-  border-bottom: 1px solid var(--border);
+/* Realce discreto ao passar o mouse */
+
+.production-card:hover {
+  border-color: var(--border-control);
 }
 
-/* CABEÇALHO */
+/* ================================
+   CABEÇALHO DO CARTÃO
+================================ */
 
 .production-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
+
+  width: 100%;
+  min-width: 0;
 }
+
+/* Ícone e nome do cliente */
 
 .production-identity {
   display: flex;
   align-items: center;
   gap: 12px;
 
+  flex: 1;
   min-width: 0;
 }
 
@@ -71,12 +207,13 @@
   align-items: center;
   justify-content: center;
 
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
 
   border-radius: var(--radius-md);
-  font-size: 1rem;
+
+  font-size: 20px;
 }
 
 .icon-purple {
@@ -85,85 +222,128 @@
 }
 
 .production-client {
+  min-width: 0;
+
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: var(--fw-bold);
+  line-height: 1.5;
+
   overflow-wrap: anywhere;
 }
 
-.production-time {
-  flex-shrink: 0;
+/* HORÁRIO DE ENTREGA */
 
-  padding: 6px 10px;
+.production-time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 6px 12px;
 
   background: var(--brand-soft);
-  color: var(--brand-primary);
-
   border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: var(--fw-bold);
+
+  color: var(--brand-primary);
+  font-size: 14px;
+  font-weight: var(--fw-extrabold);
+  white-space: nowrap;
 }
 
-/* PRODUTOS */
+/* ================================
+   CONTEÚDO DA ENCOMENDA
+================================ */
 
 .production-card-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  width: 100%;
+  min-width: 0;
 }
 
 .production-section-label {
   font-size: 12px;
-  font-weight: var(--fw-medium);
-  color: var(--text-muted);
+  font-weight: var(--fw-bold);
+
+  color: var(--text-secondary);
 }
+
+/* LISTA DE PRODUTOS */
 
 .production-items-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  min-width: 0;
 }
 
 .production-item {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+
+  min-width: 0;
 }
 
 .production-item span {
+  font-size: 14px;
+  line-height: 1.5;
+
   color: var(--text-secondary);
-  font-size: 13px;
   overflow-wrap: anywhere;
+}
+
+.production-item span:first-child {
+  flex: 1;
+  min-width: 0;
 }
 
 .production-item span:last-child {
   flex-shrink: 0;
-  font-weight: var(--fw-medium);
+
   color: var(--text-primary);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
 }
 
+/* VALOR FINAL */
+
 .production-total {
+  margin-top: 4px;
   padding-top: 12px;
+
   border-top: 1px solid var(--border);
 
   color: var(--text-primary);
-  font-size: 14px;
-  font-weight: var(--fw-medium);
+  font-size: 15px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.5;
 }
 
-/* OBSERVAÇÕES */
+/* ================================
+   OBSERVAÇÕES EXPANSÍVEIS
+================================ */
 
 .production-details {
-  padding-top: 4px;
+  width: 100%;
+  min-width: 0;
 }
 
 .production-details summary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 40px;
+  padding: 6px 0;
 
   color: var(--brand-primary);
-  font-size: 13px;
-  font-weight: var(--fw-medium);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
 
   cursor: pointer;
   list-style: none;
@@ -173,10 +353,18 @@
   display: none;
 }
 
-.production-details summary:focus-visible {
-  outline: 2px solid var(--brand-primary);
-  outline-offset: 4px;
+.production-details summary:hover {
+  color: var(--brand-hover);
 }
+
+.production-details summary:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Textos alternados conforme
+   o details está aberto ou fechado */
 
 .details-hide-text {
   display: none;
@@ -190,81 +378,165 @@
   display: inline;
 }
 
+/* Conteúdo das observações */
+
 .production-details p {
-  margin-top: 10px;
-  padding: 12px;
+  margin: 4px 0 0;
+  padding: 14px 16px;
 
   background: var(--surface-soft);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
+
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
-/* RODAPÉ */
+/* ================================
+   RODAPÉ DA ENCOMENDA
+================================ */
 
 .production-card-footer {
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
 
+  width: 100%;
+  min-width: 0;
+
   padding-top: 14px;
+
   border-top: 1px solid var(--border);
 }
 
-/* STATUS */
+/* ================================
+   CONTROLE DE STATUS
+================================ */
 
 .production-status-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  min-width: 0;
 }
 
 .production-status-field label {
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
 }
 
+/* Estado padrão do select */
+
 .production-status-select {
-  min-height: 38px;
-  min-width: 150px;
+  width: 100%;
+  min-width: 160px;
+  min-height: 44px;
 
-  padding: 8px 10px;
+  padding: 10px 12px;
 
-  background: var(--surface);
+  background: var(--brand-soft);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
 
   color: var(--text-primary);
   font: inherit;
   font-size: 13px;
+  font-weight: var(--fw-bold);
 
   cursor: pointer;
 }
 
-.production-status-select:focus-visible {
-  outline: 2px solid var(--brand-primary);
-  outline-offset: 2px;
+/* As opções continuam identificadas por texto,
+   além das cores abaixo. */
+
+/* PENDENTE */
+
+.production-status-select:has(
+  option[value="Pendente"]:checked
+) {
+  background: #FCE8EE;
+  border-color: #E9B5C7;
+  color: #92274E;
 }
 
-/* AÇÕES */
+/* EM PRODUÇÃO */
+
+.production-status-select:has(
+  option[value="Em produção"]:checked
+) {
+  background: #FFF1D6;
+  border-color: #E7CF9D;
+  color: #805017;
+}
+
+/* CONCLUÍDA */
+
+.production-status-select:has(
+  option[value="Concluída"]:checked
+) {
+  background: #E7F2E9;
+  border-color: #B9D8C0;
+  color: #2D643F;
+}
+
+.production-status-select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ================================
+   BOTÕES EDITAR E EXCLUIR
+================================ */
 
 .production-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 8px;
 }
 
 .production-actions .btn {
-  min-height: 38px;
+  min-height: 44px;
+  padding: 10px 16px;
+
+  border-radius: var(--radius-md);
+  font-size: 13px;
 }
+
+/* Botão Editar */
+
+.production-actions .btn:first-child {
+  color: var(--brand-primary);
+  background: var(--brand-soft);
+  border-color: transparent;
+}
+
+.production-actions .btn:first-child:hover {
+  background: #F7D7E2;
+}
+
+/* Botão Excluir */
+
+.production-actions .btn:last-child {
+  color: var(--danger);
+  background: var(--surface);
+  border-color: #EBC1C7;
+}
+
+.production-actions .btn:last-child:hover {
+  background: var(--danger-soft);
+}
+
+/* Estados desabilitados */
 
 .production-actions .btn:disabled,
 .production-status-select:disabled {
@@ -272,112 +544,25 @@
   cursor: not-allowed;
 }
 
+/* ================================
+   MENSAGENS DE ERRO NO CARTÃO
+================================ */
+
 .production-inline-error {
-  color: #b91c1c;
-  font-size: 12px;
+  width: 100%;
+  padding: 10px 12px;
+
+  background: var(--danger-soft);
+  border: 1px solid #E9B8BF;
+  border-radius: var(--radius-md);
+
+  color: var(--danger);
+  font-size: 13px;
   line-height: 1.5;
 }
 
 .production-inline-error[hidden] {
   display: none;
-}
-
-/* ================================
-   PÁGINA DA AGENDA
-================================ */
-
-.agenda-page {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.agenda-heading {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.agenda-eyebrow {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-
-  color: var(--brand-primary);
-}
-
-.agenda-heading h1 {
-  font-size: 28px;
-}
-
-.agenda-heading p {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-/* ================================
-   NAVEGAÇÃO ENTRE DATAS
-================================ */
-
-.agenda-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-
-  padding: 16px;
-
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-}
-
-.agenda-nav-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 40px;
-  height: 40px;
-}
-
-.agenda-date-control {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  flex: 1;
-  min-width: 180px;
-}
-
-.agenda-date-control label {
-  font-size: 12px;
-  font-weight: var(--fw-medium);
-  color: var(--text-muted);
-}
-
-.agenda-date-control input {
-  width: 100%;
-  max-width: 240px;
-
-  padding: 8px 10px;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-
-  font: inherit;
-  color: var(--text-primary);
-}
-
-#agenda-date-label {
-  font-size: 12px;
-  color: var(--text-secondary);
 }
 
 /* ================================
@@ -387,9 +572,16 @@
 .daily-progress {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 
-  padding: 20px 24px;
+  width: 100%;
+  padding: 24px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-card);
 }
 
 .daily-progress[hidden] {
@@ -398,29 +590,41 @@
 
 .daily-progress-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+}
+
+.daily-progress-header > div {
+  flex: 1;
+  min-width: 0;
 }
 
 .daily-progress-header h2 {
-  font-size: 17px;
-  font-weight: var(--fw-medium);
   color: var(--text-primary);
+  font-size: 20px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.4;
 }
 
 .daily-progress-header p {
-  margin-top: 6px;
+  margin-top: 8px;
 
-  font-size: 13px;
   color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 #daily-progress-percentage {
-  font-size: 24px;
-  font-weight: var(--fw-bold);
+  flex-shrink: 0;
+
   color: var(--brand-primary);
+  font-size: 28px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.4;
 }
+
+/* BARRA DE PROGRESSO */
 
 .daily-progress-track {
   width: 100%;
@@ -428,6 +632,7 @@
 
   background: var(--brand-soft);
   border-radius: var(--radius-full);
+
   overflow: hidden;
 }
 
@@ -442,18 +647,19 @@
 }
 
 /* ================================
-   CARREGAMENTO E ERRO
+   ESTADOS DE CARREGAMENTO E ERRO
 ================================ */
 
 .agenda-feedback {
-  padding: 12px 16px;
+  padding: 14px 16px;
 
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
   color: var(--text-secondary);
-  font-size: var(--fs-sm);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .agenda-feedback[hidden] {
@@ -461,94 +667,99 @@
 }
 
 /* ================================
-   PERÍODOS DA AGENDA
+   RESPONSIVIDADE - TABLET
 ================================ */
 
-.agenda-periods {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
+@media (max-width: 1023px) {
 
-.agenda-period {
-  padding: 20px 24px;
-}
+  .agenda-periods {
+    gap: 24px;
+  }
 
-.agenda-period-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  .daily-progress {
+    padding: 22px;
+  }
 
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.agenda-period-header h2 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  font-size: 18px;
-  font-weight: var(--fw-medium);
-}
-
-.agenda-period-header h2 i {
-  color: var(--brand-primary);
-  font-size: 20px;
-}
-
-.agenda-period-header span {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.agenda-empty {
-  padding: 20px 0 4px;
-
-  font-size: 13px;
-  color: var(--text-muted);
 }
 
 /* ================================
-   ACESSIBILIDADE
-================================ */
-
-.agenda-toolbar button:focus-visible,
-.agenda-toolbar input:focus-visible,
-.production-actions button:focus-visible {
-  outline: 2px solid var(--brand-primary);
-  outline-offset: 3px;
-}
-
-/* ================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE - MOBILE
 ================================ */
 
 @media (max-width: 640px) {
-  .daily-progress {
+
+  /* Cabeçalho da agenda */
+
+  .agenda-page {
+    gap: 20px;
+  }
+
+  .agenda-heading h1 {
+    font-size: 24px;
+  }
+
+  .agenda-heading p {
+    font-size: 14px;
+  }
+
+  /* Períodos */
+
+  .agenda-periods {
+    gap: 24px;
+  }
+
+  .agenda-period-header h2 {
+    font-size: 18px;
+  }
+
+  .agenda-period-header > span {
+    font-size: 12px;
+  }
+
+  /* Cartões */
+
+  .agenda-period .list-item.production-card {
+    flex-wrap: nowrap;
+    gap: 12px;
     padding: 16px;
   }
 
-  .daily-progress-header h2 {
+  .production-card-header {
+    align-items: flex-start;
+  }
+
+  .production-identity {
+    gap: 10px;
+  }
+
+  .item-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .production-client {
     font-size: 15px;
   }
 
-  #daily-progress-percentage {
-    font-size: 21px;
+  .production-time {
+    font-size: 13px;
   }
 
-  .production-card {
-    padding: 14px;
+  .production-item span {
+    font-size: 14px;
   }
+
+  /* Status e ações */
 
   .production-card-footer {
+    flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .production-status-field {
-    flex: 1;
+    width: 100%;
   }
 
   .production-status-select {
@@ -557,11 +768,58 @@
 
   .production-actions {
     width: 100%;
-    justify-content: flex-end;
   }
 
   .production-actions .btn {
     flex: 1;
-    justify-content: center;
   }
+
+  /* Progresso diário */
+
+  .daily-progress {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .daily-progress-header h2 {
+    font-size: 18px;
+  }
+
+  #daily-progress-percentage {
+    font-size: 24px;
+  }
+
+}
+
+/* ================================
+   TELAS MUITO ESTREITAS
+================================ */
+
+@media (max-width: 360px) {
+
+  .production-card-header {
+    flex-wrap: wrap;
+  }
+
+  .production-time {
+    margin-left: 46px;
+  }
+
+  .production-actions {
+    flex-wrap: wrap;
+  }
+
+}
+
+/* ================================
+   PREFERÊNCIA DE MOVIMENTO REDUZIDO
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .production-card,
+  .daily-progress-fill {
+    transition: none;
+  }
+
 }

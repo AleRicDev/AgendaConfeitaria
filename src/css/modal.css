@@ -1,7 +1,9 @@
 
 /* ================================
-   MODAL - ESTRUTURA
+   DOCE GESTÃO - MODAL
 ================================ */
+
+/* FUNDO SOBREPOSTO */
 
 .modal {
   position: fixed;
@@ -14,7 +16,7 @@
 
   padding: 16px;
 
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(74, 37, 28, 0.48);
 }
 
 .modal.is-open {
@@ -31,19 +33,21 @@
 
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
+
   overflow-y: auto;
   overscroll-behavior: contain;
 
   padding: 24px;
 
   background: var(--surface);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
 
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-overlay);
 }
 
 /* ================================
-   CABEÇALHO
+   CABEÇALHO DO MODAL
 ================================ */
 
 .modal-header {
@@ -56,27 +60,35 @@
 }
 
 .modal-header h2 {
-  font-size: 20px;
-  font-weight: var(--fw-bold);
+  min-width: 0;
+
   color: var(--text-primary);
+  font-size: 22px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.4;
 }
 
-/* Botão X sempre visível no modal */
+/* BOTÃO FECHAR */
 
 #production-modal-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+
+  padding: 0;
 
   background: var(--surface-soft);
-  border: none;
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
   color: var(--text-secondary);
+  font-size: 20px;
+
+  cursor: pointer;
 }
 
 #production-modal-close:hover {
@@ -92,119 +104,209 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  min-width: 0;
 }
+
+/* AGRUPAMENTO DE CAMPOS */
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 
   min-width: 0;
 }
 
 .form-group label {
-  font-size: 13px;
-  font-weight: var(--fw-medium);
   color: var(--text-primary);
+
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.4;
 }
 
 /* ================================
-   CAMPOS
+   CAMPOS DO FORMULÁRIO
 ================================ */
 
 .form-group input,
 .form-group textarea {
+  display: block;
+
   width: 100%;
   min-width: 0;
 
-  padding: 10px 12px;
+  padding: 12px 14px;
 
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-control);
   border-radius: var(--radius-md);
 
-  font: inherit;
   color: var(--text-primary);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .form-group input {
-  min-height: 42px;
+  min-height: 48px;
 }
 
 .form-group textarea {
-  min-height: 90px;
+  min-height: 112px;
+
   resize: vertical;
 }
 
+/* PLACEHOLDERS */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* FOCO DOS CAMPOS */
+
 .form-group input:focus-visible,
 .form-group textarea:focus-visible {
-  outline: 2px solid var(--brand-primary);
-  outline-offset: 1px;
+  border-color: var(--focus-ring);
+
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* CAMPOS DESABILITADOS */
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background: var(--disabled-bg);
+  color: var(--disabled-text);
+
+  cursor: not-allowed;
 }
 
 /* ================================
-   ITENS DA ENCOMENDA
+   LISTA DINÂMICA DE PRODUTOS
 ================================ */
 
 #production-items {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+
+  min-width: 0;
 }
 
-/* Cada linha contém nome, quantidade e remoção */
+/* Cada linha possui:
+   - Nome do produto
+   - Quantidade
+   - Botão Remover
+*/
 
 .production-item-row {
   display: grid;
 
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(100px, 130px)
+    minmax(100px, 120px)
     auto;
 
   align-items: end;
   gap: 12px;
 
-  padding: 12px;
+  min-width: 0;
+  padding: 14px;
 
   background: var(--surface-soft);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
 }
 
-/* Botão de remoção */
-
-.remove-item-button {
-  min-height: 42px;
+.production-item-row .form-group {
+  min-width: 0;
 }
 
-.remove-item-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
+/* QUANTIDADE */
 
-/* Botão para adicionar novos itens */
-
-#add-item-button {
-  align-self: flex-start;
-  margin-top: 12px;
+.item-quantity-input {
+  width: 100%;
+  min-width: 0;
 }
 
 /* ================================
-   MENSAGENS DE ERRO
+   BOTÃO REMOVER PRODUTO
+================================ */
+
+.remove-item-button {
+  min-height: 48px;
+  padding: 10px 12px;
+
+  background: var(--surface);
+  border: 1px solid #E9B8BF;
+  border-radius: var(--radius-md);
+
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.remove-item-button:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.remove-item-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================
+   BOTÃO ADICIONAR PRODUTO
+================================ */
+
+#add-item-button {
+  align-self: flex-start;
+
+  min-height: 44px;
+  margin-top: 12px;
+
+  padding: 10px 16px;
+
+  background: var(--brand-soft);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  color: var(--brand-primary);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+#add-item-button:hover {
+  background: #F7D7E2;
+}
+
+/* ================================
+   VALIDAÇÃO E ERROS
 ================================ */
 
 .form-error {
-  padding: 12px 16px;
+  padding: 14px 16px;
 
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--danger-soft);
+  border: 1px solid #E9B8BF;
   border-radius: var(--radius-md);
 
-  color: #b91c1c;
-
-  font-size: 13px;
+  color: var(--danger);
+  font-size: 14px;
   line-height: 1.5;
+
+  overflow-wrap: anywhere;
 }
 
 .form-error[hidden] {
@@ -212,30 +314,80 @@
 }
 
 /* ================================
-   BOTÕES DO FORMULÁRIO
+   BOTÕES CANCELAR E SALVAR
 ================================ */
 
 .modal-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
 
-  padding-top: 16px;
+  margin-top: 4px;
+  padding: 16px 0 0;
+
+  background: var(--surface);
   border-top: 1px solid var(--border);
 }
 
 .modal-actions .btn {
+  min-height: 44px;
+  padding: 10px 20px;
+
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+
   justify-content: center;
-  min-height: 40px;
+}
+
+.modal-actions .btn-outline {
+  background: var(--surface);
+  color: var(--text-secondary);
+
+  border-color: var(--border-control);
+}
+
+.modal-actions .btn-outline:hover {
+  background: var(--surface-soft);
+  color: var(--text-primary);
+}
+
+.modal-actions .btn-primary {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+
+  color: var(--text-inverse);
+}
+
+.modal-actions .btn-primary:hover:not(:disabled) {
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
 }
 
 /* ================================
-   RESPONSIVIDADE
+   FOCO VISÍVEL
+================================ */
+
+#production-modal-close:focus-visible,
+#add-item-button:focus-visible,
+.remove-item-button:focus-visible,
+.modal-actions .btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ================================
+   RESPONSIVIDADE - MOBILE
 ================================ */
 
 @media (max-width: 520px) {
 
   .modal {
+    align-items: center;
     padding: 12px;
   }
 
@@ -244,41 +396,107 @@
     max-height: calc(100dvh - 24px);
 
     padding: 16px;
+    border-radius: var(--radius-lg);
   }
 
+  /* CABEÇALHO */
+
   .modal-header {
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
   }
 
   .modal-header h2 {
-    font-size: 18px;
+    font-size: 20px;
   }
+
+  /* FORMULÁRIO */
 
   #production-form {
-    gap: 16px;
+    gap: 18px;
   }
 
-  /* Itens empilhados em telas pequenas */
+  /* PRODUTOS EM COLUNA ÚNICA */
 
   .production-item-row {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+
+    padding: 12px;
+  }
+
+  .production-item-row .form-group {
+    width: 100%;
   }
 
   .remove-item-button {
     justify-self: end;
+    min-height: 44px;
   }
+
+  /* ADICIONAR PRODUTO */
 
   #add-item-button {
     width: 100%;
     justify-content: center;
   }
 
+  /* BOTÕES DO MODAL */
+
   .modal-actions {
-    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
   .modal-actions .btn {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
   }
+
+}
+
+/* ================================
+   TELAS MUITO ESTREITAS
+================================ */
+
+@media (max-width: 360px) {
+
+  .modal {
+    padding: 8px;
+  }
+
+  .modal-content {
+    max-height: calc(100vh - 16px);
+    max-height: calc(100dvh - 16px);
+
+    padding: 14px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .production-item-row {
+    padding: 10px;
+  }
+
+  .modal-actions .btn {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+
+}
+
+/* ================================
+   MOVIMENTO REDUZIDO
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .form-group input,
+  .form-group textarea {
+    transition: none;
+  }
+
 }

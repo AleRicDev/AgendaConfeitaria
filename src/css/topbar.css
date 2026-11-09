@@ -1,127 +1,412 @@
+
 /* ================================
-   TOPBAR
+   CABEÇALHO PRINCIPAL
 ================================ */
 
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: var(--space-3) var(--space-5);
-
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 50;
+
+  width: 100%;
+  padding: 0;
+
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 
-/* ================================
-   TOPBAR LEFT
-================================ */
+/* Container interno do cabeçalho */
 
-.topbar-left {
-  display: flex;
+.topbar-inner {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+
   align-items: center;
-  gap: var(--space-3);
-}
+  gap: 24px;
 
-.topbar-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 
-.topbar-greeting {
-  font-size: var(--fs-md);
-  font-weight: var(--fw-medium);
-  color: var(--text-primary);
-}
-
-.topbar-date {
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
+  padding: 18px 24px;
 }
 
 /* ================================
-   ICON BUTTON (hamburguer)
+   MARCA DOCE GESTÃO
 ================================ */
 
-.icon-button {
-  display: none;
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
 
+  min-width: 0;
+  width: fit-content;
+
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.topbar-brand:hover {
+  color: var(--brand-primary);
+}
+
+.topbar-brand-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
 
-  background: none;
-  border: none;
+  background: var(--brand-soft);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-
-  transition: var(--transition-fast);
+  color: var(--brand-primary);
+  font-size: 23px;
 }
 
-.icon-button:hover {
-  background: var(--bg);
-  color: var(--text-primary);
+.topbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.topbar-brand-name {
+  font-size: 23px;
+  font-weight: var(--fw-black);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.topbar-brand-subtitle {
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+
+  color: var(--text-secondary);
 }
 
 /* ================================
-   TOPBAR ACTIONS
+   NAVEGAÇÃO DE DATAS
+================================ */
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+/* Botões das setas */
+
+.date-nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+
+  font-size: 18px;
+}
+
+/* Campo e descrição da data */
+
+.date-navigation-control {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 170px;
+  max-width: 220px;
+}
+
+.date-navigation-control label {
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+
+  color: var(--text-secondary);
+}
+
+.date-navigation-control input {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+
+  padding: 8px 10px;
+
+  background: var(--surface);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
+
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-semibold);
+
+  cursor: pointer;
+}
+
+#agenda-date-label {
+  font-size: 11px;
+  line-height: 1.4;
+
+  color: var(--text-secondary);
+}
+
+/* Botão Hoje */
+
+.date-today-button {
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+/* ================================
+   AÇÕES DO CABEÇALHO
 ================================ */
 
 .topbar-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: flex-end;
+  gap: 8px;
+
+  justify-self: end;
+}
+
+.topbar-actions .btn-primary {
+  white-space: nowrap;
 }
 
 /* ================================
-   BUTTONS
+   BOTÕES BASE
 ================================ */
 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: center;
+  gap: 8px;
 
-  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  padding: 10px 16px;
 
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  border: none;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.3;
 
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .btn i {
-  font-size: 0.95rem;
+  font-size: 18px;
 }
 
+/* Botão principal */
+
+.btn-primary {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--text-inverse);
+}
+
+.btn-primary:hover {
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
+  color: var(--text-inverse);
+}
+
+.btn-primary:active {
+  background: var(--brand-pressed);
+  border-color: var(--brand-pressed);
+}
+
+/* Botão secundário */
+
 .btn-outline {
-  background: transparent;
-  border: 1px solid var(--border);
+  background: var(--surface);
+  border-color: var(--border);
   color: var(--brand-primary);
 }
 
 .btn-outline:hover {
   background: var(--brand-soft);
+  border-color: var(--brand-primary);
 }
 
-.btn-primary {
+/* Estado desabilitado */
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Foco pelo teclado */
+
+.btn:focus-visible,
+.icon-button:focus-visible,
+.date-navigation-control input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ================================
+   BOTÃO DE ÍCONE
+================================ */
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+
+  color: var(--text-secondary);
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.icon-button:hover {
   background: var(--brand-soft);
   color: var(--brand-primary);
 }
 
-.btn-primary:hover {
-  background: var(--brand-hover);
+/* ================================
+   RESPONSIVIDADE - TABLET
+================================ */
+
+@media (max-width: 1023px) {
+
+  .topbar-inner {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+
+    gap: 16px;
+  }
+
+  .topbar-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .topbar-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .date-navigation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    justify-self: center;
+  }
+
+}
+
+/* ================================
+   RESPONSIVIDADE - MOBILE
+================================ */
+
+@media (max-width: 640px) {
+
+  .topbar-inner {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 14px;
+    padding: 0;
+  }
+
+  /* Marca na primeira linha */
+
+  .topbar-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .topbar-brand-name {
+    font-size: 21px;
+  }
+
+  /* Navegação de data na segunda linha */
+
+  .date-navigation {
+    display: grid;
+
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      44px;
+
+    gap: 8px;
+
+    grid-column: 1;
+    grid-row: 2;
+
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .date-navigation-control {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .date-navigation-control input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .date-nav-button {
+    width: 44px;
+    min-width: 44px;
+  }
+
+  /* Botão Hoje abaixo da navegação */
+
+  .date-today-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  /* Nova encomenda na terceira linha */
+
+  .topbar-actions {
+    grid-column: 1;
+    grid-row: 3;
+
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .topbar-actions .btn {
+    width: 100%;
+  }
+
 }

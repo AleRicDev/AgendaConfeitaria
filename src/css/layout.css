@@ -1,81 +1,156 @@
+
 /* ================================
-   LAYOUT BASE (APP SHELL)
+   ESTRUTURA GERAL DA APLICAÇÃO
 ================================ */
 
 .app-shell {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+
   background: var(--bg);
-  align-items: stretch;
 }
-
-/* ================================
-   SIDEBAR (estrutura, não estilo interno)
-================================ */
-
-.sidebar {
-  width: 200px;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-}
-
-/* ================================
-   MAIN AREA
-================================ */
 
 .main-layout {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+
+  width: 100%;
+  min-height: 100vh;
   min-width: 0;
 }
 
 /* ================================
-   CONTENT AREA
+   ÁREA DE CONTEÚDO
 ================================ */
 
 .content {
   flex: 1;
-  padding: var(--space-6);
-  overflow-y: auto;
-}
 
-/* ================================
-   GRID PRINCIPAL DO CONTEÚDO
-================================ */
-
-.grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: var(--space-5);
-  align-items: start;
-}
-
-/* ================================
-   UTILITÁRIOS DE LAYOUT
-================================ */
-
-.container {
   width: 100%;
-  max-width: 1100px;
+  min-width: 0;
+
+  padding: 32px 24px 64px;
+}
+
+/* Mantém a agenda centralizada
+   e evita cartões excessivamente largos. */
+
+.content .agenda-page {
+  width: 100%;
+  max-width: 904px;
   margin: 0 auto;
-  padding: 0 var(--space-6);
 }
 
 /* ================================
-   SCROLL BEHAVIOR (CONTENT AREA)
+   LAYOUT PRINCIPAL DA AGENDA
 ================================ */
 
-.content::-webkit-scrollbar {
-  width: 6px;
+/*
+  Uma única coluna em todas as telas.
+
+  A ordem segue o HTML:
+  1. Agenda e períodos
+  2. Progresso diário
+*/
+
+.agenda-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  gap: 32px;
+
+  width: 100%;
+  min-width: 0;
 }
 
-.content::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-full);
+/* ================================
+   AGENDA PRINCIPAL
+================================ */
+
+.agenda-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.agenda-main .agenda-heading {
+  min-width: 0;
+}
+
+/* ================================
+   PROGRESSO ABAIXO DA AGENDA
+================================ */
+
+.agenda-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.agenda-aside .daily-progress {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ================================
+   RESPONSIVIDADE - TABLET
+================================ */
+
+@media (max-width: 1023px) {
+
+  .content {
+    padding: 24px;
+  }
+
+  .agenda-grid {
+    gap: 28px;
+  }
+
+  .agenda-main {
+    gap: 20px;
+  }
+
+}
+
+/* ================================
+   RESPONSIVIDADE - MOBILE
+================================ */
+
+@media (max-width: 640px) {
+
+  .content {
+    padding: 16px 16px 40px;
+  }
+
+  .agenda-grid {
+    gap: 24px;
+  }
+
+  .agenda-main {
+    gap: 16px;
+  }
+
+  .agenda-aside {
+    gap: 16px;
+  }
+
+}
+
+/* ================================
+   SEGURANÇA CONTRA OVERFLOW
+================================ */
+
+.agenda-main,
+.agenda-aside,
+.agenda-periods,
+.agenda-period {
+  min-width: 0;
 }
